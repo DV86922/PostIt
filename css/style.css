@@ -1,0 +1,76 @@
+
+body{
+    font-family: Arial, sans-serif;
+}
+
+.instellingen *{
+    box-sizing: border-box;
+}
+
+.instellingen{
+    width: 150px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.instellingen header{
+    width: 50px;
+    height: 50px;
+    margin: 0 0 0 100px;
+    padding: 12px;
+    background-color: #81AA21;
+    border-radius: 10px;
+    transition: all 600ms;
+}
+
+.instellingen header h1{
+    margin: 0;
+    text-align: center;
+    font-weight: 400;
+    color: #F0F0F0;
+    transition: all 250ms;
+    vertical-align: top;
+    z-index: 1;
+}
+
+.instellingen .tekst{
+    position: relative;
+    width: 150px;
+    margin: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 250ms;
+
+    border-radius: 10px;
+    padding-top: 5px;
+}
+
+.instellingen:hover .tekst{
+    height: 180px;
+    background: #F0F0F0;
+}
+
+.instellingen .tekst p{
+    margin: 0;
+    color: #1B2024;
+    padding: 5px;
+    font-style: italic;
+    text-align: right;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.instellingen .tekst #pasaan{
+   text-align: left;
+}
+
+
+.instellingen:hover .tekst p{
+    transition: all 600ms;
+    transform: translateY(0%);
+    opacity: 1;
+}
+
+.instellingen .tekst i{
+    font-size: 20px;
+}
