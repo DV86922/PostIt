@@ -1,76 +1,87 @@
+/* Kleuren
+    Zalm roze: FFADAD
+    Oranje: FFD6A5
+    Geel: FDFFB6
+    Groen: CAFFBF
+    Blauw: 9BF6FF
+    Ash: A0C4FF
+    Lavendel: BDB2FF
+    Roze: FFC6FF
+    Wit: FFFFFC
 
-body{
-    font-family: Arial, sans-serif;
-}
+    Logo Kleuren
+    Oranje: ffa000
+    Geel: ffe082
+    Rood: #FF0000
+    Grijs: #212529 */
 
-.instellingen *{
-    box-sizing: border-box;
-}
-
-.instellingen{
-    width: 150px;
-    height: auto;
-    border-radius: 5px;
-}
-
-.instellingen header{
-    width: 50px;
-    height: 50px;
-    margin: 0 0 0 100px;
-    padding: 12px;
-    background-color: #81AA21;
-    border-radius: 10px;
-    transition: all 600ms;
-}
-
-.instellingen header h1{
+body {
     margin: 0;
-    text-align: center;
-    font-weight: 400;
-    color: #F0F0F0;
-    transition: all 250ms;
-    vertical-align: top;
-    z-index: 1;
+    font-family: Arial;
 }
 
-.instellingen .tekst{
-    position: relative;
-    width: 150px;
-    margin: 0;
-    height: 0;
-    overflow: hidden;
-    transition: all 250ms;
-
-    border-radius: 10px;
-    padding-top: 5px;
+a {
+    text-decoration: none;
 }
 
-.instellingen:hover .tekst{
-    height: 180px;
-    background: #F0F0F0;
-}
-
-.instellingen .tekst p{
-    margin: 0;
-    color: #1B2024;
+/* Nav */
+header {
     padding: 5px;
-    font-style: italic;
-    text-align: right;
-    transform: translateY(-100%);
-    opacity: 0;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    background-color: #cbf2ff;
 }
 
-.instellingen .tekst #pasaan{
-   text-align: left;
+header .logo {
+    width: 390px;
 }
 
-
-.instellingen:hover .tekst p{
-    transition: all 600ms;
-    transform: translateY(0%);
-    opacity: 1;
+.logo .logo-img{
+    margin: 0 5px;
+    width: 100px;
+    height: auto;
 }
 
-.instellingen .tekst i{
-    font-size: 20px;
+.nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.nav .menu-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    list-style-type: none;
+    padding: 0 1rem 1rem 1rem;
+
+    margin-top: 0;
+    line-height: 75px;
+}
+
+.nav .menu-nav__item {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 22px;
+    padding: 0 1rem 0 0;
+}
+
+.nav .menu-nav__item a{
+    text-align: center;
+    color: #212529;
+}
+
+.nav .menu-nav__item a:hover {
+    color: #FF0000;
+    text-decoration: none;
+}
+
+.nav .menu-nav__item.active > a {
+    color: #5487cc;
+}
+
+.nav .menu-nav__link {
+    font-size: 1.2rem;
 }
