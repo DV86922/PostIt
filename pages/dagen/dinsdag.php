@@ -19,6 +19,10 @@ $Naam = $_GET['Naam'];
     <title>Dinsdag</title>
 </head>
 <body>
+<?php
+require_once "header_responsive.php";
+?>
+<div class="dagen">
 <h1 class="dag">DINSDAG</h1>
 <form id="zoek">
     <label for="search">Search</label>
@@ -27,7 +31,7 @@ $Naam = $_GET['Naam'];
 </form>
 <ul>
     <?php
-    $query = "SELECT * FROM `Accounts` WHERE Gebruikersnaam = '{$Naam}'";
+    $query = "SELECT * FROM `Accounts`WHERE Gebruikersnaam = '{$Naam}'";
     // De query uitgevoerd en het resultaat opgevangen //
     $result = mysqli_query($mysqli, $query);
 
@@ -62,4 +66,5 @@ $Naam = $_GET['Naam'];
     }
     ?>
 </ul>
+</div>
 </body>

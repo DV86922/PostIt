@@ -2,12 +2,12 @@
 <html lang="nl">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" href="../media/logo.png">
+    <link rel="icon" href="../media/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Inloggen</title>
 </head>
 <body>
@@ -39,17 +39,15 @@ if (isset($_POST['submit'])) {
 
     if (isset($_SESSION['Gebruikersnaam'], $_SESSION['Wachtwoord'])) {
 //        header("Location:profiel.php?Naam=" . $gebruikersnaam);
-        header("Location:dagen/maandag.php?Naam=" . $gebruikersnaam);
+        header("Location:../index.php?Naam=" . $gebruikersnaam);
     }
 }
-
 ?>
-
 
 <div class="main">
     <div class="container">
         <div class="logo">
-            <img src="logo.png" alt="logo">
+            <img src="../media/logo.png" alt="logo">
         </div>
         <div class="text-center mt-4 name">
             Post it!
@@ -60,7 +58,8 @@ if (isset($_POST['submit'])) {
                 } ?></div>
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input class="input" type="text" id="userName" name="Gebruikersnaam" placeholder="Gebruikersnaam" required>
+                <input class="input" type="text" id="userName" name="Gebruikersnaam" placeholder="Gebruikersnaam"
+                       required>
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
@@ -73,7 +72,4 @@ if (isset($_POST['submit'])) {
         </form>
     </div>
 </div>
-
-
-
 </body>

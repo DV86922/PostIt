@@ -8,6 +8,7 @@
     Lavendel: BDB2FF
     Roze: FFC6FF
     Wit: FFFFFC
+
     Logo Kleuren
     Oranje: ffa000
     Geel: ffe082
@@ -24,7 +25,7 @@ a {
 }
 
 /* Nav */
-header {
+.header {
     padding: 5px;
     overflow: hidden;
     position: sticky;
@@ -32,7 +33,7 @@ header {
     background-color: #cbf2ff;
 }
 
-header .logo {
+.header .logo {
     width: 390px;
 }
 
@@ -45,8 +46,9 @@ header .logo {
 .nav-md,
 .nav-sm{
     position: absolute;
+    display: flex;
     top: 0;
-    right: 0;
+    right: 50px;
 }
 
 .nav-md .menu-nav,
@@ -66,8 +68,8 @@ header .logo {
 .nav-sm .menu-nav__item {
     display: inline-block;
     text-decoration: none;
-    font-size: 22px;
-    padding: 0 1rem 0 0;
+    font-size: 10px;
+    padding: 0 1rem;
 }
 
 .nav-md .menu-nav__item a,
@@ -97,47 +99,41 @@ header .logo {
 }
 
 .instellingen{
-    width: 150px;
+    position: absolute;
+    top: 13px;
+    right: 0;
+    width: 50px;
     height: auto;
     border-radius: 5px;
     margin: 10px;
+    z-index: 10;
 }
 
-.instellingen header{
-    width: 50px;
-    height: 50px;
-    margin: 0 0 0 100px;
-    padding: 12px;
-    background-color: #81AA21;
-    border-radius: 10px;
-    transition: all 600ms;
-}
-
-.instellingen header h1{
+.instellingen h1{
     margin: 0;
     text-align: center;
     font-weight: 400;
     color: #F0F0F0;
     transition: all 250ms;
     vertical-align: top;
-    z-index: 1;
 }
 
 .instellingen .tekst{
     position: relative;
     width: 150px;
-    margin: 0;
+    margin: 0 0 0 -100px;
     height: 0;
     overflow: hidden;
     transition: all 250ms;
 
     border-radius: 10px;
     padding-top: 5px;
+    line-height: 14px;
 }
 
 .instellingen:hover .tekst{
-    height: 180px;
     background: #F0F0F0;
+    height: 180px;
 }
 
 .instellingen .tekst p{
@@ -170,7 +166,6 @@ header .logo {
 
 #instelling .input:disabled{
     text-align: right;
-    border: none;
 }
 
 .instellingen .input{
@@ -364,15 +359,17 @@ header .logo {
     width: 100%;
 }
 
-ul,li{
+.dagen ul,li{
     list-style:none;
 }
-ul{
+
+.dagen ul{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
-ul li .postIt{
+
+.dagen ul li .postIt{
     text-decoration:none;
     color:#000;
     background:#ffc;
@@ -382,12 +379,12 @@ ul li .postIt{
     padding:1em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-ul li{
+
+.dagen ul li{
     margin:1em;
 }
 
-
-ul li .formPost{
+.dagen ul li .formPost{
     height:18em;
     width:18em;
 }

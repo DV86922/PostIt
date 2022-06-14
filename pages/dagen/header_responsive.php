@@ -1,6 +1,6 @@
 <?php
 //maak de verbinding
-require 'config.php';
+require '../config.php';
 session_start();
 $bericht = "";
 
@@ -22,7 +22,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
 
     if ($result) {
-        header("Location:profiel.php?Naam=" . $gebruikersnaam);
+        header("Location:../profiel.php?Naam=" . $gebruikersnaam);
     }
 
 }
@@ -70,31 +70,31 @@ if (isset($_POST['pasaanSubmit'])) {
 
 <header class="header">
     <div class="logo">
-        <a href="../index.php"><img src="../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
+        <a href="../../index.php"><img src="../../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
     </div>
 
     <nav class="nav-md">
         <ul class="menu-nav">
             <li class="menu-nav__item active">
-                <a href="dagen/maandag.php" class="menu-nav__link" id="ma">Maandag</a>
+                <a href="maandag.php" class="menu-nav__link" id="ma">Maandag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/dinsdag.php" class="menu-nav__link" id="di">Dinsdag</a>
+                <a href="dinsdag.php" class="menu-nav__link" id="di">Dinsdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/woensdag.php" class="menu-nav__link" id="wo">Woensdag</a>
+                <a href="woensdag.php" class="menu-nav__link" id="wo">Woensdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/donderdag.php" class="menu-nav__link" id="do">Donderdag</a>
+                <a href="donderdag.php" class="menu-nav__link" id="do">Donderdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/vrijdag.php" class="menu-nav__link" id="vrij">Vrijdag</a>
+                <a href="vrijdag.php" class="menu-nav__link" id="vrij">Vrijdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/zaterdag.php" class="menu-nav__link" id="zat">Zaterdag</a>
+                <a href="zaterdag.php" class="menu-nav__link" id="zat">Zaterdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/zondag.php" class="menu-nav__link" id="zon">Zondag</a>
+                <a href="zondag.php" class="menu-nav__link" id="zon">Zondag</a>
             </li>
         </ul>
     </nav>
@@ -102,25 +102,25 @@ if (isset($_POST['pasaanSubmit'])) {
     <nav class="nav-sm">
         <ul class="menu-nav">
             <li class="menu-nav__item active">
-                <a href="dagen/maandag.php" class="menu-nav__link" id="ma">Ma</a>
+                <a href="maandag.php" class="menu-nav__link" id="ma">Ma</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/dinsdag.php" class="menu-nav__link" id="di">Di</a>
+                <a href="dinsdag.php" class="menu-nav__link" id="di">Di</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/woensdag.php" class="menu-nav__link" id="wo">Wo</a>
+                <a href="woensdag.php" class="menu-nav__link" id="wo">Wo</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/donderdag.php" class="menu-nav__link" id="do">Do</a>
+                <a href="donderdag.php" class="menu-nav__link" id="do">Do</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/vrijdag.php" class="menu-nav__link" id="vrij">Vr</a>
+                <a href="vrijdag.php" class="menu-nav__link" id="vrij">Vr</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/zaterdag.php" class="menu-nav__link" id="zat">Za</a>
+                <a href="zaterdag.php" class="menu-nav__link" id="zat">Za</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dagen/zondag.php" class="menu-nav__link" id="zon">Zo</a>
+                <a href="zondag.php" class="menu-nav__link" id="zon">Zo</a>
             </li>
         </ul>
     </nav>

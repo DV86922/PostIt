@@ -19,6 +19,10 @@ $Naam = $_GET['Naam'];
     <title>Zaterdag</title>
 </head>
 <body>
+<?php
+require_once "header_responsive.php";
+?>
+<div class="dagen">
 <h1 class="dag">ZATERDAG</h1>
 <form id="zoek">
     <label for="search">Search</label>
@@ -62,4 +66,5 @@ $Naam = $_GET['Naam'];
     }
     ?>
 </ul>
+</div>
 </body>

@@ -7,7 +7,7 @@
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>Inschrijven</title>
 </head>
 <body>
@@ -66,7 +66,7 @@ if (isset($_POST['inschrijving'])) {
 <div class="main">
     <div class="container">
         <div class="logo">
-            <img src="logo.png" alt="logo">
+            <img src="../media/logo.png" alt="logo">
         </div>
         <div class="text-center mt-4 name">
             Post it!

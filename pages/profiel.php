@@ -58,9 +58,9 @@ if (isset($_POST['pasaanSubmit'])) {
 
                     ?>
                     <input hidden type="text" name="gebruikerID" value="<?= $item['GebruikerID'] ?>">
-            <p><strong>Gebruikersnaam: </strong><input class="input" type="text" name="gebruikersnaam" value="<?= $item['Gebruikersnaam'] ?>" disabled></p>
-            <p><strong>Wachtwoord:</strong><input class="input" type="password" name="wachtwoord" placeholder="******" disabled></p>
-            <p><strong>E-mail: </strong><input class="input" type="email" name="email" value="<?= $item['Email'] ?>" disabled></p>
+                    <p><strong>Gebruikersnaam: </strong><input class="input" type="text" name="gebruikersnaam" value="<?= $item['Gebruikersnaam'] ?>" disabled></p>
+                    <p><strong>Wachtwoord:</strong><input class="input" type="password" name="wachtwoord" placeholder="******" disabled></p>
+                    <p><strong>E-mail: </strong><input class="input" type="email" name="email" value="<?= $item['Email'] ?>" disabled></p>
                     <?php
                 }
             }
@@ -73,9 +73,11 @@ if (isset($_POST['pasaanSubmit'])) {
             </p>
         </form>
     </div>
-<a href="loguit.php">loguit</a>
+    <a href="loguit.php">loguit</a>
 
 </aside>
+
+
 <script>
     // Functie voor reservering wijzigen
 
@@ -85,4 +87,6 @@ if (isset($_POST['pasaanSubmit'])) {
         document.getElementById('bevestiging').style.display = "inline-block";
     }
 </script>
+
+
 </body>

@@ -48,6 +48,10 @@ if(isset($_POST['verzend'])) {
     <title>Pas aan</title>
 </head>
 <body>
+<?php
+require_once "header_responsive.php";
+?>
+<div class="dagen">
 <br>
 <h1>Pas aan</h1>
 <?php
@@ -83,6 +87,6 @@ if (mysqli_num_rows($result) > 0) {
     <?php
 }
 ?>
-
+</div>
 </body>
 </html>

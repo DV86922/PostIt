@@ -2,7 +2,6 @@
 
 //maak de verbinding
 require '../config.php';
-require '../../Classes/ClassGebruikers.php';
 session_start();
 $bericht = "";
 
@@ -20,6 +19,10 @@ $Naam = $_GET['Naam'];
     <title>Maandag</title>
 </head>
 <body>
+<?php
+    require_once "header_responsive.php";
+?>
+<div class="dagen">
 <h1 class="dag">MAANDAG</h1>
 <form id="zoek">
     <label for="search">Search</label>
@@ -63,4 +66,5 @@ $Naam = $_GET['Naam'];
     }
     ?>
 </ul>
+</div>
 </body>
