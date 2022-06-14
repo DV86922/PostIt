@@ -34,7 +34,7 @@ if (isset($_POST['pasaanSubmit'])) {
 <html lang="nl">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>Inloggen</title>
@@ -58,9 +58,9 @@ if (isset($_POST['pasaanSubmit'])) {
 
                     ?>
                     <input hidden type="text" name="gebruikerID" value="<?= $item['GebruikerID'] ?>">
-                    <p><strong>Gebruikersnaam: </strong><input class="input" type="text" name="gebruikersnaam" value="<?= $item['Gebruikersnaam'] ?>" disabled></p>
-                    <p><strong>Wachtwoord:</strong><input class="input" type="password" name="wachtwoord" placeholder="******" disabled></p>
-                    <p><strong>E-mail: </strong><input class="input" type="email" name="email" value="<?= $item['Email'] ?>" disabled></p>
+            <p><strong>Gebruikersnaam: </strong><input class="input" type="text" name="gebruikersnaam" value="<?= $item['Gebruikersnaam'] ?>" disabled></p>
+            <p><strong>Wachtwoord:</strong><input class="input" type="password" name="wachtwoord" placeholder="******" disabled></p>
+            <p><strong>E-mail: </strong><input class="input" type="email" name="email" value="<?= $item['Email'] ?>" disabled></p>
                     <?php
                 }
             }
@@ -73,7 +73,7 @@ if (isset($_POST['pasaanSubmit'])) {
             </p>
         </form>
     </div>
-
+<a href="loguit.php">loguit</a>
 
 </aside>
 <script>
