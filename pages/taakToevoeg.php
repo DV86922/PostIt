@@ -14,10 +14,20 @@
 <body>
 <div>
     <?php
-    require_once "../header_responsive.php";
+    require_once "header_responsive.php";
     ?>
 
     <main>
+        <div>
+            <!--        Taak toevoegen  -->
+            <div>
+                <a href="#"><i class="fas fa-plus"> Taak toevoegen</i></a>
+            </div>
+
+            <div>
+
+            </div>
+        </div>
     </main>
 </div>
 </body>
