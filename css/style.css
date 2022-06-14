@@ -43,13 +43,15 @@ header .logo {
     height: auto;
 }
 
-.nav {
+.nav-md,
+.nav-sm{
     position: absolute;
     top: 0;
     right: 0;
 }
 
-.nav .menu-nav {
+.nav-md .menu-nav,
+.nav-sm .menu-nav {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,31 +63,34 @@ header .logo {
     line-height: 75px;
 }
 
-.nav .menu-nav__item {
+.nav-md .menu-nav__item,
+.nav-sm .menu-nav__item {
     display: inline-block;
     text-decoration: none;
     font-size: 22px;
     padding: 0 1rem 0 0;
 }
 
-.nav .menu-nav__item a{
+.nav-md .menu-nav__item a,
+.nav-sm .menu-nav__item a{
     text-align: center;
     color: #212529;
 }
 
-.nav .menu-nav__item a:hover {
+.nav-md .menu-nav__item a:hover{
     color: #FF0000;
     text-decoration: none;
 }
 
-.nav .menu-nav__item.active > a {
+.nav-md .menu-nav__item.active > a,
+.nav-sm .menu-nav__item.active > a{
     color: #5487cc;
 }
 
-.nav .menu-nav__link {
+.nav-md .menu-nav__link,
+.nav-sm .menu-nav__link {
     font-size: 1.2rem;
 }
-
 
 
 .instellingen *{
@@ -147,7 +152,7 @@ header .logo {
 }
 
 .instellingen .tekst #pasaan{
-   text-align: left;
+    text-align: left;
 }
 #pasaan{
     border: none;
@@ -177,4 +182,24 @@ header .logo {
 #bevestiging {
     display: none;
     float: right;
+}
+
+@media (max-width: 992px){
+    .nav-sm{
+        visibility: visible;
+    }
+
+    .nav-md{
+        visibility: hidden;
+    }
+}
+
+@media (min-width: 993px) {
+    .nav-sm{
+        visibility: hidden;
+    }
+
+    .nav-md{
+        visibility: visible;
+    }
 }
