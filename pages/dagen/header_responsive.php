@@ -75,52 +75,58 @@ if (isset($_POST['pasaanSubmit'])) {
 
     <nav class="nav-md">
         <ul class="menu-nav">
-            <li class="menu-nav__item active">
-                <a href="maandag.php" class="menu-nav__link" id="ma">Maandag</a>
+            <li class="menu-nav__item">
+                <a href="maandag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="ma">Maandag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dinsdag.php" class="menu-nav__link" id="di">Dinsdag</a>
+                <a href="dinsdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="di">Dinsdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="woensdag.php" class="menu-nav__link" id="wo">Woensdag</a>
+                <a href="woensdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="wo">Woensdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="donderdag.php" class="menu-nav__link" id="do">Donderdag</a>
+                <a href="donderdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="do">Donderdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="vrijdag.php" class="menu-nav__link" id="vrij">Vrijdag</a>
+                <a href="vrijdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="vrij">Vrijdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="zaterdag.php" class="menu-nav__link" id="zat">Zaterdag</a>
+                <a href="zaterdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="zat">Zaterdag</a>
             </li>
             <li class="menu-nav__item">
-                <a href="zondag.php" class="menu-nav__link" id="zon">Zondag</a>
+                <a href="zondag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="zon">Zondag</a>
+            </li>
+            <li class="menu-nav__item">
+                <a href="../loguit.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="loguit">Log uit</a>
             </li>
         </ul>
     </nav>
 
     <nav class="nav-sm">
         <ul class="menu-nav">
-            <li class="menu-nav__item active">
-                <a href="maandag.php" class="menu-nav__link" id="ma">Ma</a>
+            <li class="menu-nav__item">
+                <a href="maandag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="ma">Ma</a>
             </li>
             <li class="menu-nav__item">
-                <a href="dinsdag.php" class="menu-nav__link" id="di">Di</a>
+                <a href="dinsdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="di">Di</a>
             </li>
             <li class="menu-nav__item">
-                <a href="woensdag.php" class="menu-nav__link" id="wo">Wo</a>
+                <a href="woensdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="wo">Wo</a>
             </li>
             <li class="menu-nav__item">
-                <a href="donderdag.php" class="menu-nav__link" id="do">Do</a>
+                <a href="donderdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="do">Do</a>
             </li>
             <li class="menu-nav__item">
-                <a href="vrijdag.php" class="menu-nav__link" id="vrij">Vr</a>
+                <a href="vrijdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="vrij">Vr</a>
             </li>
             <li class="menu-nav__item">
-                <a href="zaterdag.php" class="menu-nav__link" id="zat">Za</a>
+                <a href="zaterdag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="zat">Za</a>
             </li>
             <li class="menu-nav__item">
-                <a href="zondag.php" class="menu-nav__link" id="zon">Zo</a>
+                <a href="zondag.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="zon">Zo</a>
+            </li>
+            <li class="menu-nav__item">
+                <a href="../loguit.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="loguit">Log uit</a>
             </li>
         </ul>
     </nav>

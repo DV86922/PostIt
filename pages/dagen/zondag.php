@@ -2,6 +2,7 @@
 
 //maak de verbinding
 require '../config.php';
+require '../../Classes/ClassGebruikers.php';
 session_start();
 $bericht = "";
 
