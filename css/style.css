@@ -197,6 +197,20 @@ a {
         visibility: visible;
     }
 }
+/* Nav */
+
+/* Index */
+.ITPTaken{
+    border: 1px solid black;
+}
+
+.ITPTaken .ITPTaakBox{
+    border: 2px dotted red;
+}
+
+.ITPTaken .ITPTaakBox .ITPTaak{
+    border: 1px solid blue;
+}
 
 /*Login*/
 
@@ -411,16 +425,19 @@ a {
 #zoek .caret {
     margin: auto;
 }
+
 #zoek form {
     position: relative;
     width: 100%;
     max-width: 17em;
 }
+
 #zoek input,
 #zoek .caret {
     display: block;
     transition: all calc(1s * 0.5) linear;
 }
+
 #zoek input {
     background: transparent;
     border-radius: 50%;
@@ -431,6 +448,7 @@ a {
     -moz-appearance: none;
     appearance: none;
 }
+
 #zoek input:focus,
 #zoek input:valid {
     background: #ffffff;
@@ -442,10 +460,12 @@ a {
     width: 100%;
     height: 3em;
 }
+
 #zoek input:focus {
     animation: showCaret 1s steps(1);
     outline: transparent;
 }
+
 #zoek input:focus + .caret,
 #zoek input:valid + .caret {
     animation: handleToCaret 1s linear;
@@ -494,20 +514,23 @@ a {
     }
 }
 
-
 /*Kleuren voor de post-its*/
 .lichtRood{
     background-color: lightcoral;
 }
+
 .lichtGeel{
     background-color: lightyellow;
 }
+
 .lichtBlauw{
     background-color: lightblue;
 }
+
 .lichtGroen{
     background-color: lightgreen;
 }
+
 .geselecteerd{
     border: 1px solid black;
 }
