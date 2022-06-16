@@ -390,7 +390,9 @@ a {
 }
 
 /*zoekbalk*/
-
+#zoek #naam{
+    display: none;
+}
 
 #zoek{
     position: absolute;
