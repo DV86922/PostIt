@@ -1,3 +1,15 @@
+<?php
+// Start session
+session_start();
+if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
+    //maak de verbinding
+    require 'pages/config.php';
+    require 'Classes/ClassTaken.php';
+    require 'Classes/ClassGebruikers.php';
+
+    // Get ingelogde gebruiker
+    $user = $_GET['Naam'];
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -38,4 +50,9 @@ if (isset($_POST['submit'])) {
     if ($result) {
         header("refresh:5;url=../index.php?Naam=$user");
     }
+}
+
+// Session
+} else {
+    header("location: login.php");
 }

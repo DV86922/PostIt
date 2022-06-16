@@ -70,7 +70,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
 <header class="header">
     <div class="logo">
-        <a href="../index.php"><img src="../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
+        <a href="../index.php?Naam=<?= $Naam ?>"><img src="../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
     </div>
 
     <nav class="nav-md">
@@ -95,6 +95,9 @@ if (isset($_POST['pasaanSubmit'])) {
             </li>
             <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=7" class="menu-nav__link" id="zon">Zondag</a>
+            </li>
+            <li class="menu-nav__item">
+                <a href="loguit.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="loguit">Log uit</a>
             </li>
         </ul>
     </nav>
@@ -121,6 +124,9 @@ if (isset($_POST['pasaanSubmit'])) {
             </li>
             <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=7" class="menu-nav__link" id="zon">Zo</a>
+            </li>
+            <li class="menu-nav__item">
+                <a href="loguit.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="loguit">Log uit</a>
             </li>
         </ul>
     </nav>
