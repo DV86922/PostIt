@@ -493,3 +493,27 @@ a {
         transform: translate(0, -1em) rotate(-45deg) translate(0, 1em);
     }
 }
+
+
+/*Kleuren voor de post-its*/
+.lichtRood{
+    background-color: lightcoral;
+}
+.lichtGeel{
+    background-color: lightyellow;
+}
+.lichtBlauw{
+    background-color: lightblue;
+}
+.lichtGroen{
+    background-color: lightgreen;
+}
+.geselecteerd{
+    border: 1px solid black;
+}
+
+.knop{
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+}
