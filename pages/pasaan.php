@@ -3,9 +3,9 @@ require 'config.php';
 session_start();
 $bericht = "";
 
-// haal de naam uit de URL
+// haal de naam en dag uit de URL
 $Naam = $_GET['Naam'];
-
+$dagID = $_GET['Dag'];
 
 if(isset($_POST['verzend'])) {
     // Hier worden dan ook alles velden weer uitgelezen en in een variabele gestopt.
@@ -21,13 +21,13 @@ if(isset($_POST['verzend'])) {
     } else {
         // Ik heb een aanpas query aangemaakt //
         $query = "UPDATE Taken";
-        $query .= " SET BeginTijd = {$BeginTijd}, EindTijd = {$EindTijd}, TaakTitel = '{$TaakTitel}', TaakOmschrijving = '{$TaakOmschrijving}'";
+        $query .= " SET BeginTijd = '{$BeginTijd}', EindTijd = '{$EindTijd}', TaakTitel = '{$TaakTitel}', TaakOmschrijving = '{$TaakOmschrijving}'";
         $query .= " WHERE TaakID = {$id}";
 
         $result = mysqli_query($mysqli, $query);
         // Controleren of het resultaat is gelukt //
         if ($result) {
-            header("Location: profiel.php?Naam=$Naam");
+            header("Location: dagen/dag.php?Naam=$Naam&Dag=$dagID");
 
         }
         else{
@@ -42,16 +42,12 @@ if(isset($_POST['verzend'])) {
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <title>Pas aan</title>
 </head>
 <body>
-<?php
-require_once "header_responsive.php";
-?>
-<div class="dagen">
 <br>
 <h1>Pas aan</h1>
 <?php
@@ -87,6 +83,6 @@ if (mysqli_num_rows($result) > 0) {
     <?php
 }
 ?>
-</div>
+
 </body>
 </html>
