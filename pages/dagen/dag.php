@@ -18,6 +18,17 @@ $result = mysqli_query($mysqli, $query);
 if (mysqli_num_rows($result) > 0) {
 while ($item = mysqli_fetch_assoc($result)) {
 
+
+$query = "SELECT * FROM `Accounts` WHERE Gebruikersnaam = '{$Naam}'";
+// De query uitgevoerd en het resultaat opgevangen //
+$result = mysqli_query($mysqli, $query);
+
+if (mysqli_num_rows($result) > 0) {
+while ($item = mysqli_fetch_assoc($result)) {
+$inGebruiker = new Gebruiker($item['GebruikerID'], $item['Gebruikersnaam'], $item['Wachtwoord'], $item['Email']);
+//GebruikerID veranderen in een getal //
+$gebruikerID = intval($inGebruiker->gebruikerID);
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -41,13 +52,12 @@ require_once "header_responsive.php";
 <div class="dagen">
     <form id="zoek">
         <!--    Hier moet ik met de class de ingelogde gebruiker hebben. dan kan ik de id hebben. die controleer ik met tabel in taken op ajax.php-->
-        <input id="naam" type="text" name="id" value="<?= $Naam ?>">
+        <input id="naam" type="text" name="id" value="<?= $gebruikerID ?>">
         <label for="search">Search</label>
-        <!--    css nog toevoegen in github-->
         <input id="search" type="search" name="zoek" pattern=".*\S.*" required>
         <span class="caret"></span>
+        <div id="resultaat"></div>
     </form>
-    <div id="resultaat"></div>
 
     <button class="knop lichtRood" id="lichtGrijsPostIt"></button>
     <button class="knop lichtGeel" id="lichtGeelPostIt"></button>
@@ -55,38 +65,29 @@ require_once "header_responsive.php";
     <button class="knop lichtGroen" id="lichtGroenPostIt"></button>
     <ul>
         <?php
-        $query = "SELECT * FROM `Accounts` WHERE Gebruikersnaam = '{$Naam}'";
-        // De query uitgevoerd en het resultaat opgevangen //
-        $result = mysqli_query($mysqli, $query);
+        // Query controleren of gebruikerID en dagID goed zijn //
+        $query2 = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID}";
 
-        if (mysqli_num_rows($result) > 0) {
-            while ($item = mysqli_fetch_assoc($result)) {
-                $inGebruiker = new Gebruiker($item['GebruikerID'], $item['Gebruikersnaam'], $item['Wachtwoord'], $item['Email']);
-                //GebruikerID veranderen in een getal //
-                $gebruikerID = intval($inGebruiker->gebruikerID);
-                // Query controleren of gebruikerID en dagID goed zijn //
-                $query2 = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID}";
-
-                $result2 = mysqli_query($mysqli, $query2);
-                if (mysqli_num_rows($result2) > 0) {
-                    while ($item = mysqli_fetch_assoc($result2)) {
-                        // Tijd in de juiste format //
-                        $TijdBegin = new DateTime($item['BeginTijd']);
-                        $TijdEind = new DateTime($item['EindTijd']);
-                        ?>
-                        <li>
-                            <div class="postIt">
-                                <p class="tijd"><?= $TijdBegin->format('H:i'); ?> - <?= $TijdEind->format('H:i'); ?></p>
-                                <h2><?= $item['TaakTitel'] ?></h2>
-                                <p id="omschrijving"><?= $item['TaakOmschrijving'] ?></p>
-                                <p class="pasaan"><a href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>"><i
-                                                class="fas fa-edit"></i></a></p>
-                            </div>
-                        </li>
-                        <?php
-                    }
-                }
+        $result2 = mysqli_query($mysqli, $query2);
+        if (mysqli_num_rows($result2) > 0) {
+            while ($item = mysqli_fetch_assoc($result2)) {
+                // Tijd in de juiste format //
+                $TijdBegin = new DateTime($item['BeginTijd']);
+                $TijdEind = new DateTime($item['EindTijd']);
+                ?>
+                <li>
+                    <div class="postIt">
+                        <p class="tijd"><?= $TijdBegin->format('H:i'); ?> - <?= $TijdEind->format('H:i'); ?></p>
+                        <h2><?= $item['TaakTitel'] ?></h2>
+                        <p id="omschrijving"><?= $item['TaakOmschrijving'] ?></p>
+                        <p class="pasaan"><a href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>"><i
+                                        class="fas fa-edit"></i></a></p>
+                    </div>
+                </li>
+                <?php
             }
+        }
+        }
         }
         ?>
     </ul>
