@@ -70,7 +70,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
 <header class="header">
     <div class="logo">
-        <a href="../../index.php"><img src="../../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
+        <a href="../../index.php?Naam=<?= $Naam ?>"><img src="../../media/logo.png" alt="Post It!-logo" class="logo-img"></a>
     </div>
 
     <nav class="nav-md">
