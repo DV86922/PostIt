@@ -95,23 +95,27 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
 
             <nav class="nav-md">
                 <ul class="menu-nav">
-                    <li class="menu-nav__item active">
+                    <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Maandag</a>
                     </li>
                     <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=2" class="menu-nav__link" id="di">Dinsdag</a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=3" class="menu-nav__link" id="wo">Woensdag</a>
+                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=3" class="menu-nav__link"
+                           id="wo">Woensdag</a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=4" class="menu-nav__link" id="do">Donderdag</a>
+                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=4" class="menu-nav__link"
+                           id="do">Donderdag</a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=5" class="menu-nav__link" id="vrij">Vrijdag</a>
+                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=5" class="menu-nav__link"
+                           id="vrij">Vrijdag</a>
                     </li>
                     <li class="menu-nav__item">
-                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=6" class="menu-nav__link" id="zat">Zaterdag</a>
+                        <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=6" class="menu-nav__link"
+                           id="zat">Zaterdag</a>
                     </li>
                     <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=7" class="menu-nav__link" id="zon">Zondag</a>
@@ -124,7 +128,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
 
             <nav class="nav-sm">
                 <ul class="menu-nav">
-                    <li class="menu-nav__item active">
+                    <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Ma</a>
                     </li>
                     <li class="menu-nav__item">
@@ -153,46 +157,45 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
         </header>
         <!--  Header  -->
 
-        <?php
-        // Query voor taken
-        $ITPtakenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID WHERE Gebruikersnaam = '{$Naam}' AND DagID IS NULL;";
-        $takenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID WHERE Gebruikersnaam = '{$Naam}' AND DagID IS NOT NULL;";
-        $ITPtakenResult = mysqli_query($mysqli, $ITPtakenQuery);
-        $takenResult = mysqli_query($mysqli, $takenQuery);
-
-        $ITPtakenArr = array();
-        $takenArr = array();
-        // Result voor feitjes andere gebruikers
-        if (mysqli_num_rows($takenResult) > 0) {
-            while ($item = mysqli_fetch_assoc($ITPtakenResult)) {
-                $ITPnewTaak = new Taken($item['taakID'], $item['gebruikerID'], $item['dagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
-
-                $ITPtakenArr[] = $ITPnewTaak;
-            }
-            while ($item = mysqli_fetch_assoc($takenResult)) {
-                $newTaak = new Taken($item['taakID'], $item['gebruikerID'], $item['dagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
-                $takenArr[] = $newTaak;
-            }
-        }
-
-//                echo "<pre>";
-//        var_dump($newTaak);
-//        echo "</pre>";
-//        echo "<pre>";
-//        var_dump($ITPtakenArr);
-//        echo "</pre>";
-
-        ?>
         <main>
             <div>
                 <!--        Taak toevoegen  -->
                 <div>
                     <a href="pages/taakToevoeg.php?Naam=<?= $Naam ?>"><i class="fas fa-plus"> Taak toevoegen</i></a>
                 </div>
-
-                <!--        Zoekbalk  -->
-
             </div>
+
+            <?php
+            // Query voor taken
+            $ITPtakenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID WHERE Gebruikersnaam = '{$Naam}' AND DagID IS NULL;";
+            $takenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID WHERE Gebruikersnaam = '{$Naam}' AND DagID IS NOT NULL ORDER BY DagID;";
+            $ITPtakenResult = mysqli_query($mysqli, $ITPtakenQuery);
+            $takenResult = mysqli_query($mysqli, $takenQuery);
+
+            $ITPtakenArr = array();
+            $takenArr = array();
+            // Result voor feitjes andere gebruikers
+            if (mysqli_num_rows($takenResult) > 0) {
+                while ($item = mysqli_fetch_assoc($ITPtakenResult)) {
+                    $ITPnewTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
+
+                    $ITPtakenArr[] = $ITPnewTaak;
+                }
+                while ($item = mysqli_fetch_assoc($takenResult)) {
+                    $newTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
+                    $takenArr[] = $newTaak;
+                }
+            }
+
+            //                echo "<pre>";
+            //        var_dump($newTaak);
+            //        echo "</pre>";
+            //        echo "<pre>";
+            //        var_dump($ITPtakenArr);
+            //        echo "</pre>";
+
+            ?>
+
             <!--        Nog in te plannen taken  -->
             <div class="ITPTaken">
                 <h3 id="demo">Nog in te plannen taken:</h3>
@@ -219,12 +222,11 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                     }
                 }
 
-
                 foreach ($ITPtakenArr as $ITPtaakItem) {
                     ?>
                     <div class="ITPTaakBox">
                         <form class="ITPTaak" name="ITPTaak" action="" method="POST">
-                            <input type="hidden" name="ITPtaakID" value="<?= $ITPtaakItem->taakID ?>">
+                            <input type="hidden" name="ITPtaakID" value="<?php echo $ITPtaakItem->taakID ?>">
                             <input name="ITPtaakTitel" value="<?= $ITPtaakItem->taakTitel ?>">
                             <input name="ITPtaakOmschrijving" value="<?= $ITPtaakItem->taakOmschrijving ?>">
                             <select name="ITPbeginTijd">
@@ -269,7 +271,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                 if (mysqli_num_rows($dagResult) > 0) {
                                     while ($item = mysqli_fetch_assoc($dagResult)) {
                                         $dagID = $item["DagID"];
-                                        $dag =  $item["Dagen"];
+                                        $dag = $item["Dagen"];
                                         ?>
                                         <option value="<?php echo $dagID ?>"><?= $dag ?></option>
                                         <?php
@@ -288,18 +290,23 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
             <!--        Taken overzicht  -->
             <div class="takenOverzicht">
                 <h3>Taken</h3>
-                <?php
-                foreach ($takenArr as $taakItem) {
-                    // code neerzetten voor dagen
-                    ?>
-                    <div class="zichtTaakBox">
-                        <div class="zichtTaak">
-                            <p><?= $taakItem->taakTitel ?></p>
-                            <p><?= $taakItem->taakOmschrijving ?></p>
-
-                        </div>
+                <div class="zichtTaakBox">
+                    <div class="zichtTaak">
+                        <?php
+                        $dagNaam = "";
+                        foreach ($takenArr as $taakItem){
+                        // code neerzetten voor dagen
+                        if ($dagNaam != $taakItem->dagNamen()) { ?>
+                            <h4 class="zichtDag"><?php echo $taakItem->dagNamen() ?></h4>
+                            <?php
+                            $dagNaam = $taakItem->dagNamen();
+                        } ?>
+                        <p><?= $taakItem->taakTitel ?></p>
+                        <p><?php echo $taakItem->tijdFormat() . " - ";
+                            echo $taakItem->taakOmschrijving ?></p>
                     </div>
-                    <?php
+                </div>
+                <?php
                 }
                 ?>
             </div>
