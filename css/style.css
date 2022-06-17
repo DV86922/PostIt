@@ -31,6 +31,7 @@ a {
     position: sticky;
     top: 0;
     background-color: #cbf2ff;
+    z-index: 10;
 }
 
 .header .logo {
@@ -404,16 +405,17 @@ a {
 }
 
 /*zoekbalk*/
-#zoek #naam{
+#zoek #naam, #zoek #naamID, #zoek #dagID{
     display: none;
 }
 
 #zoek{
     position: absolute;
     right: .5em;
-    top: 1.5em;
+    top: 9em;
     width: 25%;
 }
+
 
 #zoek input {
     color: #17181c;
@@ -468,11 +470,16 @@ a {
 
 #zoek input:focus + .caret,
 #zoek input:valid + .caret {
-    animation: handleToCaret 1s linear;
     background: transparent;
     width: 1px;
     height: 1.5em;
-    transform: translate(0, -1em) rotate(-180deg) translate(7.5em, -0.25em);
+    /*grote scherm*/
+    animation: handleToCaret 1s linear;
+    transform: translate(0, -1em) rotate(-180deg) translate(15em, -0.25em);
+
+    /*Kleine scherm*/
+    /*transform: translate(0, -1em) rotate(-180deg) translate(5.5em, -0.25em);*/
+    /*animation: handleToCaret 0.8s linear;*/
 }
 #zoek input::-webkit-search-decoration {
     -webkit-appearance: none;
@@ -514,29 +521,44 @@ a {
     }
 }
 
+
 /*Kleuren voor de post-its*/
 .lichtRood{
     background-color: lightcoral;
 }
-
 .lichtGeel{
     background-color: lightyellow;
 }
-
 .lichtBlauw{
     background-color: lightblue;
 }
-
 .lichtGroen{
     background-color: lightgreen;
 }
 
-.geselecteerd{
-    border: 1px solid black;
-}
+.kleur{
+    margin: 10px;
+    display: flex;
+    justify-items: center;
+    float: right;
 
+}
+.kleur label{
+    margin: 2px;
+}
 .knop{
     width: 30px;
     height: 30px;
     border: 1px solid black;
+}
+input[type=radio]{
+    width: 30px;
+    height: 30px;
+}
+input[type=radio] + label{
+    border: 1px solid black;
+    display: block;
+}
+input[type=radio]:checked + label{
+    border: 1px solid blue;
 }
