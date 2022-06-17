@@ -3,27 +3,35 @@
 require '../config.php';
 // zoek uitlezen
 $zoek = $_POST['zoek'];
-$naam = $_POST['naam'];
+$naamID = $_POST['naamID'];
+$dagID = $_POST['dagID'];
+$Naam = $_POST['naam'];
 
-// Ik heb een query aangemaakt //
-$query = "SELECT * FROM Taken, Accounts WHERE TaakTitel LIKE '" . $zoek . "%' AND Gebruikersnaam = '" . $naam . "'";
-
+// Query controleren of gebruikerID en dagID goed zijn //
+$query = "SELECT * FROM Taken WHERE TaakTitel LIKE '%" . $zoek . "%' AND GebruikerID = {$naamID} AND DagID = {$dagID}";
 $result = mysqli_query($mysqli, $query);
-// Controleren of het resultaat is gelukt //
-if ($result) {
-//        header("Location: profiel.php?Naam=$Naam");
-// Ik heb hier een tabel aangemaakt met alle titels uit de database //
+if (mysqli_num_rows($result) > 0) {
     while ($item = mysqli_fetch_assoc($result)) {
-        // Hier toon ik de items //
-
-        if($item['TaakTitel'] != ""){
-            echo "- " . $item['TaakTitel'] . "<br>";
-        }
-        if($item['TaakOmschrijving'] != ""){
-            echo "- " . $item['TaakOmschrijving'] . "<br>";
-        }
-
+        // Tijd in de juiste format //
+        $TijdBegin = new DateTime($item['BeginTijd']);
+        $TijdEind = new DateTime($item['EindTijd']);
+        ?>
+        <li>
+            <div style="background-color: <?= $item['Kleur'] ?>" class="postIt">
+                <p class="tijd"><?= $TijdBegin->format('H:i'); ?> - <?= $TijdEind->format('H:i'); ?></p>
+                <h2 id="zoekPostIt"><?= $item['TaakTitel'] ?></h2>
+                <p id="omschrijving"><?= $item['TaakOmschrijving'] ?></p>
+                <p class="pasaan"><a
+                            href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>"><i
+                                class="fas fa-edit"></i></a></p>
+            </div>
+        </li>
+        <?php
     }
-
 }
+?>
+
+
+
+
 
