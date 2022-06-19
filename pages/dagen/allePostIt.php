@@ -7,7 +7,7 @@ $dagID = $_POST['dagID'];
 $Naam = $_POST['naam'];
 
 // Query controleren of gebruikerID en dagID goed zijn //
-$query = "SELECT * FROM Taken WHERE GebruikerID = {$naamID} AND DagID = {$dagID}";
+$query = "SELECT * FROM Taken WHERE GebruikerID = {$naamID} AND DagID = {$dagID} AND Klaar = '0' ORDER BY BeginTijd";
 $result = mysqli_query($mysqli, $query);
 if (mysqli_num_rows($result) > 0) {
     while ($item = mysqli_fetch_assoc($result)) {
@@ -29,5 +29,7 @@ if (mysqli_num_rows($result) > 0) {
     }
 }
 ?>
+
+
 
 
