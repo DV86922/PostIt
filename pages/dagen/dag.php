@@ -64,7 +64,7 @@ require_once "header_responsive.php";
     <ul id="result" class="alles">
         <?php
         // Query controleren of gebruikerID en dagID goed zijn //
-        $query = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID}";
+        $query = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID} AND Klaar = '0' ORDER BY BeginTijd";
 
         $result = mysqli_query($mysqli, $query);
         if (mysqli_num_rows($result) > 0) {
@@ -78,9 +78,11 @@ require_once "header_responsive.php";
                         <p class="tijd"><?= $TijdBegin->format('H:i'); ?> - <?= $TijdEind->format('H:i'); ?></p>
                         <h2 id="zoekPostIt"><?= $item['TaakTitel'] ?></h2>
                         <p id="omschrijving"><?= $item['TaakOmschrijving'] ?></p>
+                        <div class="iconen">
+                        <p class="check"><a href="klaarVerwerk.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>&Klaar=0"><i class="fas fa-clipboard-check"></i></a></p>
                         <p class="pasaan"><a
                                     href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>"><i
-                                        class="fas fa-edit"></i></a></p>
+                                        class="fas fa-edit"></i></a></p> </div>
                     </div>
                 </li>
                 <?php
