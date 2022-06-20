@@ -16,6 +16,24 @@ if (isset($_POST['verzend'])) {
     $TaakTitel = $_POST['TaakTitel'];
     $TaakOmschrijving = $_POST['TaakOmschrijving'];
     $kleur = $_POST['kleur'];
+var_dump($BeginTijd);
+    if($BeginTijd == ""){
+        $BeginTijd = "NULL";
+    }
+    if($EindTijd == ""){
+        $EindTijd = "NULL";
+    }
+    if($GekozenDag == ""){
+        $GekozenDag = "NULL";
+    }
+    if($kleur == ""){
+       $kleur = "lightyellow";
+    }
+
+    // Veranderen in getal
+    $TaakID = intval($id);
+    $gekozenDagID = intval($GekozenDag);
+
 
     // Even controleren of er geen één variabele leeg is, anders wordt de if uitgevoerd //
     if ($BeginTijd == "" || $EindTijd == "" || $GekozenDag == "" || $TaakTitel == "" || $TaakOmschrijving == "" || $kleur == "") {
@@ -23,10 +41,11 @@ if (isset($_POST['verzend'])) {
     } else {
         // Ik heb een aanpas query aangemaakt //
         $query = "UPDATE Taken";
-        $query .= " SET DagID = {$dagID} BeginTijd = '{$BeginTijd}', EindTijd = '{$EindTijd}', TaakTitel = '{$TaakTitel}', TaakOmschrijving = '{$TaakOmschrijving}', Kleur= '{$kleur}'";
-        $query .= " WHERE TaakID = {$id}";
+        $query .= " SET DagID = {$gekozenDagID}, BeginTijd = '{$BeginTijd}', EindTijd = '{$EindTijd}', TaakTitel = '{$TaakTitel}', TaakOmschrijving = '{$TaakOmschrijving}', Kleur= '{$kleur}'";
+        $query .= " WHERE TaakID = {$TaakID}";
 
         $result = mysqli_query($mysqli, $query);
+
         // Controleren of het resultaat is gelukt //
         if ($result) {
             header("Location: dagen/dag.php?Naam=$Naam&Dag=$dagID");
@@ -57,7 +76,7 @@ if (isset($_POST['verzend'])) {
 require_once "header_responsive.php";
 ?>
 <br>
-<h1>Pas aan</h1>
+<h1 style="text-align: center">Pas aan</h1>
 <div class="dagen">
     <?php
     // Het ID uitlezen //
@@ -93,7 +112,7 @@ require_once "header_responsive.php";
                                     while ($item = mysqli_fetch_assoc($tijdResult)) {
                                         $tijd = $item["Tijden"];
                                         ?>
-                                        <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
+                                        <option value="<?= $tijd ?>"><?= $tijd ?></option>
                                         <?php
                                     }
                                 }
@@ -107,7 +126,7 @@ require_once "header_responsive.php";
                                     while ($item = mysqli_fetch_assoc($tijdResult)) {
                                         $tijd = $item["Tijden"];
                                         ?>
-                                        <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
+                                        <option value="<?= $tijd ?>"><?= $tijd ?></option>
                                         <?php
                                     }
                                 }
@@ -125,7 +144,7 @@ require_once "header_responsive.php";
                                         $dagID = $item["DagID"];
                                         $dag =  $item["Dagen"];
                                         ?>
-                                        <option value="<?php echo $dagID ?>"><?= $dag ?></option>
+                                        <option value="<?= $dagID ?>"><?= $dag ?></option>
                                         <?php
                                     }
                                 }
