@@ -75,7 +75,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
     <nav class="nav-md">
         <ul class="menu-nav">
-            <li class="menu-nav__item active">
+            <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Maandag</a>
             </li>
             <li class="menu-nav__item">
@@ -104,7 +104,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
     <nav class="nav-sm">
         <ul class="menu-nav">
-            <li class="menu-nav__item active">
+            <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Ma</a>
             </li>
             <li class="menu-nav__item">
