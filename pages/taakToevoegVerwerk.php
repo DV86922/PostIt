@@ -3,54 +3,63 @@
 session_start();
 if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
     //maak de verbinding
-    require 'pages/config.php';
-    require 'Classes/ClassTaken.php';
-    require 'Classes/ClassGebruikers.php';
+    require 'config.php';
+    require '../Classes/ClassTaken.php';
+    require '../Classes/ClassGebruikers.php';
 
     // Get ingelogde gebruiker
-    $user = $_GET['Naam'];
-?>
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <title>Post It!</title>
-</head>
-<body>
-<div>
-<?php
-require_once "header_responsive.php";
+    $Naam = $_GET['Naam'];
+    ?>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+              integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <title>Post It!</title>
+    </head>
+    <body>
+    <div>
+    <?php
+    require_once "header_responsive.php";
 
-// Maak verbinding
-require '../pages/config.php';
-
-//  User uitlezen
-$user = $_GET['Naam'];
-
-if (isset($_POST['submit'])) {
+    if (isset($_POST['submit'])) {
 // Alle waarden uitgelezen en in een variabele gezet //
-    $gebruikerID = $_POST['gebruikerID'];
-    $feitje = $_POST['feitje'];
-    $antwoord = $_POST['waarnietwaar'];
+        $gebruikerID = $_POST['gebruikerID'];
+        $BeginTijd = $_POST['beginTijd'];
+        $EindTijd = $_POST['eindTijd'];
+        $GekozenDag = $_POST['gekozenDag'];
+        $TaakTitel = $_POST['taakTitel'];
+        $TaakOmschrijving = $_POST['taakOmschrijving'];
 
 
-    $query = "INSERT INTO Feitjes";
-    $query .= " (Gebruiker_ID, Feitje, WaarNietWaar)";
-    $query .= " VALUES ($gebruikerID, '{$feitje}', '{$antwoord}')";
+        $toevoegQuery = "INSERT INTO Taken";
+        $toevoegQuery .= " (GebruikerID, DagID, BeginTijd, EindTijd, TaakTitel, TaakOmschrijving, Klaar)";
+        $toevoegQuery .= " VALUES ($gebruikerID, '{$GekozenDag}', '{$BeginTijd}', '{$EindTijd}', '{$TaakTitel}', '{$TaakOmschrijving}', '0')";
 
-    $result = mysqli_query($mysqli, $query);
+        $result = mysqli_query($mysqli, $toevoegQuery);
 
-    if ($result) {
-        header("refresh:5;url=../index.php?Naam=$user");
+        if ($result) {
+                        ?>
+    <div class="toegevoegd">
+        <h2>Taak toegevoegd!</h2>
+        <p>Je wordt over 3 seconden teruggestuurd naar de overzichtspagina. Gebeurt dit niet? <a class="klikHier"
+                                                                                                href="../index.php?Naam=<?php echo $Naam ?>">Klik
+                dan hier</a>.</p>
+    </div>
+        <?php
+            header("refresh:3;url=taakToevoeg.php?Naam={$Naam}");
+
+        }else{
+            echo $toevoegQuery;
+        }
     }
-}
 
 // Session
 } else {

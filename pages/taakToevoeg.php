@@ -7,15 +7,16 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
     require '../Classes/ClassGebruikers.php';
 
 // Get ingelogde gebruiker
-    $user = $_GET['Naam'];
+    $Naam = $_GET['Naam'];
+    $inGebruiker = "";
 
 // Query voor user
-    $userQuery = "SELECT * FROM Accounts WHERE Gebruikersnaam = '{$user}'";
+    $userQuery = "SELECT * FROM Accounts WHERE Gebruikersnaam = '{$Naam}'";
     $userResult = mysqli_query($mysqli, $userQuery);
 
     if (mysqli_num_rows($userResult) > 0) {
         while ($item = mysqli_fetch_assoc($userResult)) {
-            $inGebruiker = new Gebruiker($item['Gebruikers_ID'], $item['Gebruikersnaam'], $item['Wachtwoord'], $item['Email']);
+            $inGebruiker = new Gebruiker($item['GebruikerID'], $item['Gebruikersnaam'], $item['Wachtwoord'], $item['Email']);
         }
     }
     ?>
@@ -48,14 +49,10 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                 <div>
                     <ul>
                         <li>
-                            <form class="toevoeg" name="toevoegForm" method="post" action="">
+                            <form class="taakToevoeg" name="toevoegForm" method="post" action="taakToevoegVerwerk.php?Naam=<?php echo $Naam; ?>">
                                 <input type="hidden" name="gebruikerID" value="<?php echo $inGebruiker->gebruikerID ?>">
                                 <div class="postIt formPost">
                                     <div class="tijd">
-                                        <!--                                    <input class="tijdInput" type="text" name="BeginTijd" required value="-->
-                                        <? //= $item['BeginTijd'] ?><!--"> --->
-                                        <!--                                    <input class="tijdInput" type="text" name="EindTijd" required value="-->
-                                        <? //= $item['EindTijd'] ?><!--">-->
                                         <select name="beginTijd">
                                             <option disabled selected>Begintijd</option>
                                             <?php
@@ -76,6 +73,8 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                         <select name="eindTijd">
                                             <option disabled selected>Eindtijd</option>
                                             <?php
+                                            // Query voor tijden
+                                            $tijdQuery = "SELECT * FROM Tijden";
                                             $tijdResult = mysqli_query($mysqli, $tijdQuery);
                                             if (mysqli_num_rows($tijdResult) > 0) {
                                                 while ($item = mysqli_fetch_assoc($tijdResult)) {
@@ -97,7 +96,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                             if (mysqli_num_rows($dagResult) > 0) {
                                                 while ($item = mysqli_fetch_assoc($dagResult)) {
                                                     $dagID = $item["DagID"];
-                                                    $dag =  $item["Dagen"];
+                                                    $dag = $item["Dagen"];
                                                     ?>
                                                     <option value="<?php echo $dagID ?>"><?= $dag ?></option>
                                                     <?php
@@ -106,11 +105,11 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                             ?>
                                         </select>
                                     </div>
-                                    <h2><input class="taakTitel" type="text" name="TaakTitel" required
+                                    <h2><input class="taakTitel" type="text" name="taakTitel" required
                                                placeholder="Taak titel"></h2>
-                                    <input class="omschrijvingInput" type="text" name="TaakOmschrijving" required
+                                    <input class="omschrijvingInput" type="text" name="taakOmschrijving" required
                                            placeholder="Taak omschrijving">
-                                    <input class="btn" type="submit" name="verzend" value="Aanpassen">
+                                    <input class="btn" type="submit" name="submit" value="Toevoegen">
                                 </div>
                             </form>
                         </li>
