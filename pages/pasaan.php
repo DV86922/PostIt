@@ -53,6 +53,9 @@ if (isset($_POST['verzend'])) {
     <title>Pas aan</title>
 </head>
 <body>
+<?php
+require_once "header_responsive.php";
+?>
 <br>
 <h1>Pas aan</h1>
 <div class="dagen">
