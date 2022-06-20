@@ -8,6 +8,7 @@
     Lavendel: BDB2FF
     Roze: FFC6FF
     Wit: FFFFFC
+
     Logo Kleuren
     Oranje: ffa000
     Geel: ffe082
@@ -197,7 +198,6 @@ a {
         visibility: visible;
     }
 }
-
 /* Nav */
 
 /* Index */
@@ -211,6 +211,25 @@ a {
 
 .ITPTaken .ITPTaakBox .ITPTaak{
     border: 1px solid blue;
+}
+
+.takenOverzicht .zichtTaakBox .zichtDagTaken{
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.takenOverzicht .zichtTaakBox .zichtDag{
+    border: 1px solid blue;
+    padding: 5px;
+}
+
+.takenOverzicht .zichtTaakBox .zichtTaak{
+    border: 1px solid red;
+    padding: 5px;
+}
+
+.takenOverzicht .zichtTaak .fa-trash-alt:before {
+    color: red;
 }
 
 /*Login*/
@@ -336,6 +355,7 @@ a {
     font-size: 1.5rem;
     margin-bottom: 0;
 }
+
 .postIt .check{
     text-align: left;
     font-size: 1.5rem;
@@ -343,7 +363,7 @@ a {
 }
 
 .postIt .check i{
-   color: green;
+    color: green;
 }
 
 .postIt .iconen{
@@ -441,16 +461,19 @@ a {
 #zoek .caret {
     margin: auto;
 }
+
 #zoek form {
     position: relative;
     width: 100%;
     max-width: 17em;
 }
+
 #zoek input,
 #zoek .caret {
     display: block;
     transition: all calc(1s * 0.5) linear;
 }
+
 #zoek input {
     background: transparent;
     border-radius: 50%;
@@ -461,6 +484,7 @@ a {
     -moz-appearance: none;
     appearance: none;
 }
+
 #zoek input:focus,
 #zoek input:valid {
     background: #ffffff;
@@ -472,10 +496,12 @@ a {
     width: 100%;
     height: 3em;
 }
+
 #zoek input:focus {
     animation: showCaret 1s steps(1);
     outline: transparent;
 }
+
 #zoek input:focus + .caret,
 #zoek input:valid + .caret {
     background: transparent;
@@ -489,9 +515,11 @@ a {
     /*transform: translate(0, -1em) rotate(-180deg) translate(5.5em, -0.25em);*/
     /*animation: handleToCaret 0.8s linear;*/
 }
+
 #zoek input::-webkit-search-decoration {
     -webkit-appearance: none;
 }
+
 #zoek label {
     color: #e3e4e8;
     overflow: hidden;
@@ -499,6 +527,7 @@ a {
     width: 0;
     height: 0;
 }
+
 #zoek .caret {
     background: currentColor;
     border-radius: 0 0 0.125em 0.125em;
@@ -508,7 +537,6 @@ a {
     transform: translate(0, -1em) rotate(-45deg) translate(0, 0.875em);
     transform-origin: 50% 0;
 }
-
 
 
 /* Animations */
@@ -529,17 +557,19 @@ a {
     }
 }
 
-
 /*Kleuren voor de post-its*/
 .lichtRood{
     background-color: lightcoral;
 }
+
 .lichtGeel{
     background-color: lightyellow;
 }
+
 .lichtBlauw{
     background-color: lightblue;
 }
+
 .lichtGroen{
     background-color: lightgreen;
 }
@@ -551,22 +581,27 @@ a {
     float: right;
 
 }
+
 .kleur label{
     margin: 2px;
 }
+
 .knop{
     width: 30px;
     height: 30px;
     border: 1px solid black;
 }
+
 input[type=radio]{
     width: 30px;
     height: 30px;
 }
+
 input[type=radio] + label{
     border: 1px solid black;
     display: block;
 }
+
 input[type=radio]:checked + label{
     border: 1px solid blue;
 }
