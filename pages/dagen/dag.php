@@ -1,3 +1,5 @@
+
+
 <?php
 
 //maak de verbinding
@@ -64,7 +66,7 @@ require_once "header_responsive.php";
     <ul id="result" class="alles">
         <?php
         // Query controleren of gebruikerID en dagID goed zijn //
-        $query = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID} AND Klaar = '0' ORDER BY BeginTijd";
+        $query = "SELECT * FROM `Taken` WHERE GebruikerID = {$gebruikerID} AND DagID = {$dagID} AND (DagID IS NOT NULL AND BeginTijd IS NOT NULL AND BeginTijd != '00:00:00' AND EindTijd IS NOT NULL AND EindTijd != '00:00:00' ) AND Klaar = '0' ORDER BY BeginTijd";
 
         $result = mysqli_query($mysqli, $query);
         if (mysqli_num_rows($result) > 0) {
@@ -72,6 +74,7 @@ require_once "header_responsive.php";
                 // Tijd in de juiste format //
                 $TijdBegin = new DateTime($item['BeginTijd']);
                 $TijdEind = new DateTime($item['EindTijd']);
+
                 ?>
                 <li>
                     <div style="background-color: <?= $item['Kleur'] ?>" class="postIt">
@@ -79,10 +82,10 @@ require_once "header_responsive.php";
                         <h2 id="zoekPostIt"><?= $item['TaakTitel'] ?></h2>
                         <p id="omschrijving"><?= $item['TaakOmschrijving'] ?></p>
                         <div class="iconen">
-                        <p class="check"><a href="klaarVerwerk.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>&Klaar=0"><i class="fas fa-clipboard-check"></i></a></p>
-                        <p class="pasaan"><a
-                                    href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>"><i
-                                        class="fas fa-edit"></i></a></p> </div>
+                            <p class="check"><a href="klaarVerwerk.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>&Klaar=0"><i class="fas fa-clipboard-check"></i></a></p>
+                            <p class="pasaan"><a
+                                        href="../pasaan.php?Naam=<?= $Naam ?>&id=<?= $item['TaakID'] ?>&Dag=<?= $dagID ?>"><i
+                                            class="fas fa-edit"></i></a></p> </div>
                     </div>
                 </li>
                 <?php
