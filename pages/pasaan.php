@@ -16,7 +16,7 @@ if (isset($_POST['verzend'])) {
     $TaakTitel = $_POST['TaakTitel'];
     $TaakOmschrijving = $_POST['TaakOmschrijving'];
     $kleur = $_POST['kleur'];
-var_dump($BeginTijd);
+//    var_dump($BeginTijd);
     if($BeginTijd == ""){
         $BeginTijd = "NULL";
     }
@@ -27,16 +27,16 @@ var_dump($BeginTijd);
         $GekozenDag = "NULL";
     }
     if($kleur == ""){
-       $kleur = "lightyellow";
+        $kleur = "lightyellow";
     }
 
     // Veranderen in getal
     $TaakID = intval($id);
     $gekozenDagID = intval($GekozenDag);
 
-
+// $BeginTijd == "" || $EindTijd == "" || $GekozenDag == "" || -  || $kleur == ""
     // Even controleren of er geen één variabele leeg is, anders wordt de if uitgevoerd //
-    if ($BeginTijd == "" || $EindTijd == "" || $GekozenDag == "" || $TaakTitel == "" || $TaakOmschrijving == "" || $kleur == "") {
+    if ($TaakTitel == "" || $TaakOmschrijving == "") {
         $bericht = "Niet alle velden zijn ingevuld.";
     } else {
         // Ik heb een aanpas query aangemaakt //
@@ -87,10 +87,26 @@ require_once "header_responsive.php";
     $result = mysqli_query($mysqli, $query);
 
     if (mysqli_num_rows($result) > 0) {
-        $item = mysqli_fetch_assoc($result);
+        while ($item = mysqli_fetch_assoc($result)){
 
         $taakTitel = $item['TaakTitel'];
         $taakOmschrijving = $item['TaakOmschrijving'];
+
+        // Variabelen toegevoegd voor vergelijking
+        $beginTijd = $item['BeginTijd'];
+        $eindTijd = $item['EindTijd'];
+        $dagInData = $item['DagID'];
+
+        // TEST \\
+//        echo "<pre>";
+//        var_dump($beginTijd);
+//        echo "</pre>";
+//        echo "<pre>";
+//        var_dump($eindTijd);
+//        echo "</pre>";
+//        echo "<pre>";
+//        var_dump($dagInData);
+//        echo "</pre>";
         ?>
         <ul>
             <li>
@@ -102,7 +118,7 @@ require_once "header_responsive.php";
                         <input type="hidden" name="id" value="<?= $item['TaakID']; ?>">
                         <div class="tijd">
                             <select name="BeginTijd">
-                                <option disabled selected>Begintijd</option>
+<!--                                <option disabled selected>Begintijd</option>-->
                                 <?php
                                 // Query voor tijden
                                 $tijdQuery = "SELECT * FROM Tijden";
@@ -111,29 +127,49 @@ require_once "header_responsive.php";
                                 if (mysqli_num_rows($tijdResult) > 0) {
                                     while ($item = mysqli_fetch_assoc($tijdResult)) {
                                         $tijd = $item["Tijden"];
-                                        ?>
-                                        <option value="<?= $tijd ?>"><?= $tijd ?></option>
-                                        <?php
+
+                                        if ($tijd == "00:00:00") {
+                                            $tijd = "Geen tijd";
+                                        }
+
+                                        // Selecteer de tijd van de database
+                                        if ($beginTijd == $tijd) {
+                                            echo "<option value='". $tijd ."' selected>". $tijd ."</option>";
+                                        }
+                                        // Vul de rest van de tijden aan, als je dit uitcomment -->
+                                        else {
+                                            echo "<option value='". $tijd ."'>". $tijd ."</option>";
+                                        }
+                                        // <-- Dan komt de overige data (tijden + dagen) niet tevoorschijn
                                     }
                                 }
                                 ?>
                             </select>
                             <select name="EindTijd">
-                                <option disabled selected>Eindtijd</option>
+<!--                                <option disabled selected>Eindtijd</option>-->
                                 <?php
                                 $tijdResult = mysqli_query($mysqli, $tijdQuery);
                                 if (mysqli_num_rows($tijdResult) > 0) {
                                     while ($item = mysqli_fetch_assoc($tijdResult)) {
                                         $tijd = $item["Tijden"];
-                                        ?>
-                                        <option value="<?= $tijd ?>"><?= $tijd ?></option>
-                                        <?php
+
+                                        if ($tijd == "00:00:00") {
+                                            $tijd = "Geen tijd";
+                                        }
+
+                                        // Selecteer de tijd van de database
+                                        if ($eindTijd == $tijd) {
+                                            echo "<option value='". $tijd ."' selected>". $tijd ."</option>";
+                                        } else {
+                                            // Vul de rest van de tijden aan
+                                            echo "<option value='". $tijd ."'>". $tijd ."</option>";
+                                        }
                                     }
                                 }
                                 ?>
                             </select>
                             <select name="GekozenDag">
-                                <option disabled selected>Dag</option>
+<!--                                <option disabled selected>Dag</option>-->
                                 <?php
                                 // Query voor tijden
                                 $dagQuery = "SELECT * FROM Dagen";
@@ -143,9 +179,14 @@ require_once "header_responsive.php";
                                     while ($item = mysqli_fetch_assoc($dagResult)) {
                                         $dagID = $item["DagID"];
                                         $dag =  $item["Dagen"];
-                                        ?>
-                                        <option value="<?= $dagID ?>"><?= $dag ?></option>
-                                        <?php
+
+                                        // Selecteer de tijd van de database
+                                        if ($dagInData == $dagID) {
+                                            echo "<option value='". $dagID ."' selected>". $dag ."</option>";
+                                        } else {
+                                            // Vul de rest van de dagen aan
+                                            echo "<option value='". $dagID ."'>". $dag ."</option>";
+                                        }
                                     }
                                 }
                                 ?>
@@ -153,13 +194,13 @@ require_once "header_responsive.php";
                         </div>
                         <div class="kleur">
                             <input hidden type="radio" name="kleur" id="lichtRoodPostIt" value="lightcoral"><label
-                                    class="knop lichtRood" for="lichtRoodPostIt"></label>
+                                class="knop lichtRood" for="lichtRoodPostIt"></label>
                             <input hidden type="radio" name="kleur" id="lichtGeelPostIt" value="lightyellow"><label
-                                    class="knop lichtGeel" for="lichtGeelPostIt"></label>
+                                class="knop lichtGeel" for="lichtGeelPostIt"></label>
                             <input hidden type="radio" name="kleur" id="lichtBlauwPostIt" value="lightblue"><label
-                                    class="knop lichtBlauw" for="lichtBlauwPostIt"></label>
+                                class="knop lichtBlauw" for="lichtBlauwPostIt"></label>
                             <input hidden type="radio" name="kleur" id="lichtGroenPostIt" value="lightgreen"> <label
-                                    class="knop lichtGroen" for="lichtGroenPostIt"></label>
+                                class="knop lichtGroen" for="lichtGroenPostIt"></label>
                         </div>
 
                         <h2><input class="taakTitel" type="text" name="TaakTitel" required
@@ -173,6 +214,7 @@ require_once "header_responsive.php";
         </ul>
 
         <?php
+        }
     }
     ?>
 </div>

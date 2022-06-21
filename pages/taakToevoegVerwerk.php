@@ -1,6 +1,7 @@
 <?php
 // Start session
 session_start();
+$feedback = "";
 if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
     //maak de verbinding
     require 'config.php';
@@ -9,6 +10,8 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
 
     // Get ingelogde gebruiker
     $Naam = $_GET['Naam'];
+
+    header("Refresh:3; url=../index.php?Naam=" . $Naam);
     ?>
     <!doctype html>
     <html lang="en">
@@ -22,7 +25,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
               crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/style.css">
-        <title>Post It!</title>
+        <title>Post It! - Aan het verwerken...</title>
     </head>
     <body>
     <div>
@@ -38,25 +41,36 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
         $TaakTitel = $_POST['taakTitel'];
         $TaakOmschrijving = $_POST['taakOmschrijving'];
 
+        if ($BeginTijd == "" || $BeginTijd == "Geen tijd") {
+            $BeginTijd = "NULL";
+        }
+        if ($EindTijd == "" || $EindTijd == "Geen tijd") {
+            $EindTijd = "NULL";
+        }
+        if ($GekozenDag == "" || $GekozenDag == 8) {
+            $GekozenDag = "NULL";
+        }
 
         $toevoegQuery = "INSERT INTO Taken";
         $toevoegQuery .= " (GebruikerID, DagID, BeginTijd, EindTijd, TaakTitel, TaakOmschrijving, Klaar)";
-        $toevoegQuery .= " VALUES ($gebruikerID, '{$GekozenDag}', '{$BeginTijd}', '{$EindTijd}', '{$TaakTitel}', '{$TaakOmschrijving}', '0')";
+        $toevoegQuery .= " VALUES ($gebruikerID, {$GekozenDag}, '{$BeginTijd}', '{$EindTijd}', '{$TaakTitel}', '{$TaakOmschrijving}', '0')";
 
         $result = mysqli_query($mysqli, $toevoegQuery);
-
         if ($result) {
-                        ?>
-    <div class="toegevoegd">
+            echo $feedback = "<main><div class='toegevoegd'>
         <h2>Taak toegevoegd!</h2>
-        <p>Je wordt over 3 seconden teruggestuurd naar de overzichtspagina. Gebeurt dit niet? <a class="klikHier"
-                                                                                                href="../index.php?Naam=<?php echo $Naam ?>">Klik
+        <p>Je wordt over 3 seconden teruggestuurd naar de overzichtspagina. Gebeurt dit niet? <a class='klikHier'
+                                                                                                href='../index.php?Naam=$Naam'>Klik
                 dan hier</a>.</p>
-    </div>
-        <?php
-            header("refresh:3;url=taakToevoeg.php?Naam={$Naam}");
-
-        }else{
+    </div></main>";
+        } else {
+            echo $feedback = "<main><div class='toegevoegd'>
+<h2>Taak is niet toegevoegd!</h2>
+<p>Het toevoegen van de taak is niet gelukt!</p>
+<p>Je wordt over 3 seconden teruggestuurd naar de overzichtspagina. Gebeurt dit niet? <a class='klikHier'
+                                                                                                href='../index.php?Naam=$Naam'>Klik
+                dan hier</a>.</p>
+</div></main>";
             echo $toevoegQuery;
         }
     }

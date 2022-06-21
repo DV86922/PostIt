@@ -32,7 +32,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
               crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/style.css">
-        <title>Post It!</title>
+        <title>Post It! - Taak toevoegen</title>
     </head>
     <body>
     <?php
@@ -49,7 +49,8 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                 <div>
                     <ul>
                         <li>
-                            <form class="taakToevoeg" name="toevoegForm" method="post" action="taakToevoegVerwerk.php?Naam=<?php echo $Naam; ?>">
+                            <form class="taakToevoeg" name="toevoegForm" method="post"
+                                  action="taakToevoegVerwerk.php?Naam=<?php echo $Naam; ?>">
                                 <input type="hidden" name="gebruikerID" value="<?php echo $inGebruiker->gebruikerID ?>">
                                 <div class="postIt formPost">
                                     <div class="tijd">
@@ -63,6 +64,10 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                             if (mysqli_num_rows($tijdResult) > 0) {
                                                 while ($item = mysqli_fetch_assoc($tijdResult)) {
                                                     $tijd = $item["Tijden"];
+
+                                                    if ($tijd == "00:00:00") {
+                                                        $tijd = "Geen tijd";
+                                                    }
                                                     ?>
                                                     <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
                                                     <?php
@@ -79,6 +84,10 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                             if (mysqli_num_rows($tijdResult) > 0) {
                                                 while ($item = mysqli_fetch_assoc($tijdResult)) {
                                                     $tijd = $item["Tijden"];
+
+                                                    if ($tijd == "00:00:00") {
+                                                        $tijd = "Geen tijd";
+                                                    }
                                                     ?>
                                                     <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
                                                     <?php

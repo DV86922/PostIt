@@ -22,7 +22,7 @@ if (isset($_POST['pasaanSubmit'])) {
 
 
     if ($result) {
-        header("Location:profiel.php?Naam=" . $gebruikersnaam);
+//        header("Location:profiel.php?Naam=" . $gebruikersnaam);
     }
 
 }
@@ -76,6 +76,9 @@ if (isset($_POST['pasaanSubmit'])) {
     <nav class="nav-md">
         <ul class="menu-nav">
             <li class="menu-nav__item">
+                <a href="../index.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="home">Home</a>
+            </li>
+            <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Maandag</a>
             </li>
             <li class="menu-nav__item">
@@ -104,6 +107,9 @@ if (isset($_POST['pasaanSubmit'])) {
 
     <nav class="nav-sm">
         <ul class="menu-nav">
+            <li class="menu-nav__item">
+                <a href="../index.php?Naam=<?= $Naam ?>" class="menu-nav__link" id="home">Home</a>
+            </li>
             <li class="menu-nav__item">
                 <a href="dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Ma</a>
             </li>
