@@ -17,7 +17,7 @@
 
 body {
     margin: 0;
-    font-family: Arial;
+    font-family: Arial, serif;
 }
 
 a {
@@ -80,7 +80,7 @@ a {
 }
 
 .nav-md .menu-nav__item a:hover{
-    color: #FF0000;
+    color: #FFADAD;
     text-decoration: none;
 }
 
@@ -107,7 +107,7 @@ a {
     height: auto;
     border-radius: 5px;
     margin: 10px;
-    z-index: 10;
+    z-index: 11;
 }
 
 .instellingen h1{
@@ -179,7 +179,7 @@ a {
     float: right;
 }
 
-@media (max-width: 992px){
+@media (max-width: 1119px){
     .nav-sm{
         visibility: visible;
     }
@@ -189,7 +189,7 @@ a {
     }
 }
 
-@media (min-width: 993px) {
+@media (min-width: 1120px) {
     .nav-sm{
         visibility: hidden;
     }
@@ -201,39 +201,141 @@ a {
 /* Nav */
 
 /* Index */
-.ITPTaken{
-    border: 1px solid black;
+/* Link naar taak toevoegen*/
+.linkToevoeg{
+    width: 15vw;
+    position: absolute;
+    right: 0;
+    margin: 5px;
 }
 
-.ITPTaken .ITPTaakBox{
-    border: 2px dotted red;
+.linkToevoeg .fa-plus{
+    color: green;
 }
 
-.ITPTaken .ITPTaakBox .ITPTaak{
-    border: 1px solid blue;
+.linkToevoeg a{
+    font-family: Arial, serif;
+    color: black;
 }
 
-.takenOverzicht .zichtTaakBox .zichtDagTaken{
-    border: 1px solid black;
+.linkToevoeg a:hover{
+    text-decoration: none;
+}
+
+/* ITP + Taken overzicht*/
+.alleTaken{
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 5vw;
+
+    width: 900px;
     padding: 5px;
+    margin: 30px auto auto;
+
+    /*justify-content: space-evenly;*/
+    /*!*align-content: space-evenly;*!*/
+    align-items: baseline;
+
 }
 
-.takenOverzicht .zichtTaakBox .zichtDag{
-    border: 1px solid blue;
+.ITPTaken,
+.takenOverzicht{
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 5px;
+
+    justify-content: space-evenly;
+    align-content: space-evenly;
+}
+
+/* Titels van ITP en Taken*/
+.ITPTaken .ITPtitel,
+.takenOverzicht .takentitel{
+    background-color: #FDFFB6;
+    text-align: center;
     padding: 5px;
+
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
-.takenOverzicht .zichtTaakBox .zichtTaak{
-    border: 1px solid red;
+.takenOverzicht .takentitel,
+.takenOverzicht .zichtDag{
+    margin-bottom: 0;
+}
+
+/* ITP Taakbox + inhoud*/
+.ITPTaken .ITPTaak{
+    border-bottom: 2px dotted black;
+    display: grid;
+    grid-template-columns: auto auto;
     padding: 5px;
+    margin: 5px;
 }
 
-.takenOverzicht .zichtTaak .fa-trash-alt:before {
+.ITPTaken .ITPtaakTitel,
+.ITPTaken .ITPtaakOmschrijving{
+    margin: 2px;
+}
+
+.ITPTaken .ITPTaak .ITPBegin{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+.ITPTaken .ITPTaak .ITPEind{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.ITPTaken .ITPTaak select,
+.ITPTaken .ITPTaak #check{
+    margin: 2px;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+/* Takenoverzicht > dag*/
+.takenOverzicht .zichtDag{
+    background-color: #A0C4FF;
+    padding: 5px;
+    border-bottom: 1px solid black;
+}
+
+/* Takenoverzicht Taakbox + inhoud*/
+.takenOverzicht .zichtTaak{
+    border-bottom: 2px dotted black;
+
+    width: 425px;
+    padding: 5px;
+    /*margin: 2px 0 0 2px;*/
+}
+
+/* Prullenbak + aanpas icon taken */
+.takenOverzicht .zichtTaak .takenIcons{
+    float: right;
+    position: relative;
+    top: -80px;
+}
+
+.takenOverzicht .zichtTaak .pasaan,
+.takenOverzicht .zichtTaak .verwijder{
+    text-align: right;
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.takenOverzicht .zichtTaak .verwijder a{
     color: red;
 }
 
-/*Login*/
+.takenOverzicht .zichtTaak .pasaan a{
+    color: black;
+}
 
+/*Login*/
 .container{
     max-width: 350px;
     min-height: 580px;
