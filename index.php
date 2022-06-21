@@ -9,6 +9,80 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
 
     // Get ingelogde gebruiker
     $Naam = $_GET['Naam'];
+
+    // Query voor taken
+    $ITPtakenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID ";
+    $ITPtakenQuery .= "WHERE Gebruikersnaam = '{$Naam}' AND (DagID IS NULL OR BeginTijd IS NULL OR BeginTijd = '00:00:00' OR EindTijd IS NULL OR EindTijd = '00:00:00' ) AND Klaar = '0';";
+
+    $takenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID ";
+    $takenQuery .= "WHERE Gebruikersnaam = '{$Naam}' AND (DagID IS NOT NULL AND BeginTijd IS NOT NULL AND BeginTijd != '00:00:00' AND EindTijd IS NOT NULL AND EindTijd != '00:00:00' ) AND Klaar = '0' ORDER BY DagID ASC, BeginTijd ASC;";
+
+    //Result/uitvoer voor taken
+    $ITPtakenResult = mysqli_query($mysqli, $ITPtakenQuery);
+    $takenResult = mysqli_query($mysqli, $takenQuery);
+
+    //Arrays om de taken op te slaan
+    $ITPtakenArr = array();
+    $takenArr = array();
+
+    // Result voor In te plannen taken
+    if (mysqli_num_rows($ITPtakenResult) > 0) {
+
+        while ($item = mysqli_fetch_assoc($ITPtakenResult)) {
+            $ITPnewTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
+
+            $ITPtakenArr[] = $ITPnewTaak;
+        }
+    }
+    // Result voor all ingeplande taken
+    if (mysqli_num_rows($takenResult) > 0) {
+
+        while ($item = mysqli_fetch_assoc($takenResult)) {
+            $newTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
+            $takenArr[] = $newTaak;
+        }
+    }
+
+    // TEST \\
+    //            echo "<pre>";
+    //            var_dump($ITPtakenArr);
+    //            echo "</pre>";
+    //            echo "<pre>";
+    //            var_dump($takenArr);
+    //            echo "</pre>";
+
+
+    if (isset($_POST['toepasSubmit'])) {
+        $ITPtaakID = $_POST['ITPtaakID'];
+        $ITPdag = $_POST['gekozenDag'];
+        $ITPbeginTijd = $_POST['ITPbeginTijd'];
+        $ITPeindTijdd = $_POST['ITPeindTijd'];
+        $ITPtaakTitel = $_POST['ITPtaakTitel'];
+        $ITPtaakOmschrijving = $_POST['ITPtaakOmschrijving'];
+
+        if ($ITPbeginTijd == "" || $ITPbeginTijd == "00:00:00") {
+            $ITPbeginTijd = "NULL";
+        }
+        if ($ITPeindTijdd == "" || $ITPeindTijdd == "00:00:00") {
+            $ITPeindTijdd = "NULL";
+        }
+        if ($ITPdag == "" || $ITPdag == 8) {
+            $ITPdag = "NULL";
+        }
+
+        $invoerQuery = "UPDATE Taken SET";
+        $invoerQuery .= " DagID = {$ITPdag}, BeginTijd = '{$ITPbeginTijd}', EindTijd = '{$ITPeindTijdd}',";
+        $invoerQuery .= " TaakTitel = '{$ITPtaakTitel}', TaakOmschrijving = '{$ITPtaakOmschrijving}'";
+        $invoerQuery .= " WHERE TaakID = {$ITPtaakID}";
+
+        $invoerResult = mysqli_query($mysqli, $invoerQuery);
+
+        if ($invoerResult) {
+            header("Location:index.php?Naam=" . $Naam);
+        } else {
+            echo $invoerQuery;
+        }
+    }
     ?>
     <!doctype html>
     <html lang="en">
@@ -43,9 +117,9 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
             $result = mysqli_query($mysqli, $query);
 
 
-            if ($result) {
-                header("Location:profiel.php?Naam=" . $gebruikersnaam);
-            }
+//            if ($result) {
+//                header("Location:profiel.php?Naam=" . $gebruikersnaam);
+//            }
         }
         ?>
 
@@ -96,6 +170,9 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
             <nav class="nav-md">
                 <ul class="menu-nav">
                     <li class="menu-nav__item">
+                        <a href="#" class="menu-nav__link" id="home">Home</a>
+                    </li>
+                    <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Maandag</a>
                     </li>
                     <li class="menu-nav__item">
@@ -129,6 +206,9 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
             <nav class="nav-sm">
                 <ul class="menu-nav">
                     <li class="menu-nav__item">
+                        <a href="#" class="menu-nav__link" id="home">Home</a>
+                    </li>
+                    <li class="menu-nav__item">
                         <a href="pages/dagen/dag.php?Naam=<?= $Naam ?>&Dag=1" class="menu-nav__link" id="ma">Ma</a>
                     </li>
                     <li class="menu-nav__item">
@@ -155,178 +235,137 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                 </ul>
             </nav>
         </header>
-        <!--  Header  -->
 
-        <main>
-            <div>
-                <!--        Taak toevoegen  -->
-                <div>
-                    <a href="pages/taakToevoeg.php?Naam=<?= $Naam ?>"><i class="fas fa-plus"> Taak toevoegen</i></a>
-                </div>
+        <main class="index">
+            <!--        Taak toevoegen  -->
+            <div class="linkToevoeg">
+                <a href="pages/taakToevoeg.php?Naam=<?= $Naam ?>"><i class="fas fa-plus"> </i> Taak toevoegen</a>
             </div>
 
-            <?php
-            // Query voor taken
-            $ITPtakenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID ";
-            $ITPtakenQuery .= "WHERE Gebruikersnaam = '{$Naam}' AND (DagID IS NULL OR BeginTijd IS NULL OR EindTijd IS NULL) AND Klaar = '0';";
-            $takenQuery = "SELECT * FROM Taken LEFT JOIN Accounts ON Taken.GebruikerID = Accounts.GebruikerID ";
-            $takenQuery .= "WHERE Gebruikersnaam = '{$Naam}' AND (DagID IS NOT NULL AND BeginTijd IS NOT NULL AND EindTijd IS NOT NULL) AND Klaar = '0' ORDER BY DagID;";
-            $ITPtakenResult = mysqli_query($mysqli, $ITPtakenQuery);
-            $takenResult = mysqli_query($mysqli, $takenQuery);
-
-            $ITPtakenArr = array();
-            $takenArr = array();
-            // Result voor feitjes andere gebruikers
-            if (mysqli_num_rows($takenResult) > 0) {
-                while ($item = mysqli_fetch_assoc($ITPtakenResult)) {
-                    $ITPnewTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
-
-                    $ITPtakenArr[] = $ITPnewTaak;
-                }
-                while ($item = mysqli_fetch_assoc($takenResult)) {
-                    $newTaak = new Taken($item['TaakID'], $item['GebruikerID'], $item['DagID'], $item['BeginTijd'], $item['EindTijd'], $item['TaakTitel'], $item['TaakOmschrijving']);
-                    $takenArr[] = $newTaak;
-                }
-            }
-
-            //                echo "<pre>";
-            //        var_dump($newTaak);
-            //        echo "</pre>";
-            //        echo "<pre>";
-            //        var_dump($ITPtakenArr);
-            //        echo "</pre>";
-
-            ?>
-
-            <!--        Nog in te plannen taken  -->
-            <div class="ITPTaken">
-                <h3 id="demo">Nog in te plannen taken:</h3>
-                <?php
-
-                if (isset($_POST['toepasSubmit'])) {
-                    $ITPtaakID = $_POST['ITPtaakID'];
-                    $ITPdag = $_POST['gekozenDag'];
-                    $ITPbeginTijd = $_POST['ITPbeginTijd'];
-                    $ITPeindTijdd = $_POST['ITPeindTijd'];
-                    $ITPtaakTitel = $_POST['ITPtaakTitel'];
-                    $ITPtaakOmschrijving = $_POST['ITPtaakOmschrijving'];
-
-                    if ($ITPbeginTijd == "") {
-                        $ITPbeginTijd = "NULL";
-                    }
-                    if ($ITPeindTijdd == "") {
-                        $ITPeindTijdd = "NULL";
-                    }
-                    if ($ITPdag == "") {
-                        $ITPdag = "NULL";
-                    }
-
-                    $invoerQuery = "UPDATE Taken SET";
-                    $invoerQuery .= " DagID = {$ITPdag}, BeginTijd = {$ITPbeginTijd}, EindTijd = {$ITPeindTijdd},";
-                    $invoerQuery .= " TaakTitel = '{$ITPtaakTitel}', TaakOmschrijving = '{$ITPtaakOmschrijving}'";
-                    $invoerQuery .= " WHERE TaakID = {$ITPtaakID}";
-
-                    $invoerResult = mysqli_query($mysqli, $invoerQuery);
-
-                    if ($invoerResult) {
-                        header("Location:index.php?Naam=" . $gebruikersnaam);
-                    }
-                }
-
-                foreach ($ITPtakenArr as $ITPtaakItem) {
-                    ?>
-                    <div class="ITPTaakBox">
-                        <form class="ITPTaak" name="ITPTaak" action="" method="POST">
-                            <input type="hidden" name="ITPtaakID" value="<?php echo $ITPtaakItem->taakID ?>">
-                            <input name="ITPtaakTitel" value="<?= $ITPtaakItem->taakTitel ?>">
-                            <input name="ITPtaakOmschrijving" value="<?= $ITPtaakItem->taakOmschrijving ?>">
-                            <select name="ITPbeginTijd">
-                                <option disabled selected value="">Begintijd</option>
-                                <?php
-                                // Query voor tijden
-                                $tijdQuery = "SELECT * FROM Tijden";
-                                $tijdResult = mysqli_query($mysqli, $tijdQuery);
-
-                                if (mysqli_num_rows($tijdResult) > 0) {
-                                    while ($item = mysqli_fetch_assoc($tijdResult)) {
-                                        $tijd = $item["Tijden"];
-                                        if ($ITPtaakItem->beginTijd->format('H:i:s') == $tijd) {
-                                            echo "<option value='" . $tijd ."' selected>". $tijd ."</option>";
-                                        } else {
-                                            echo "<option value='". $tijd ."'>". $tijd ."</option>";
-                                        }
-                                    }
-                                }
-                                ?>
-                            </select>
-                            <select name="ITPeindTijd">
-                                <option disabled selected value="">Eindtijd</option>
-                                <?php
-                                if (mysqli_num_rows($tijdResult) > 0) {
-                                    while ($item = mysqli_fetch_assoc($tijdResult)) {
-                                        $tijd = $item["Tijden"];
-                                        if ($ITPtaakItem->eindTijd->format('H:i:s') == $tijd) {
-                                            echo "<option value='" . $tijd ."' selected>". $tijd ."</option>";
-                                        } else {
-                                            echo "<option value='". $tijd ."'>". $tijd ."</option>";
-                                        }
-                                    }
-                                }
-                                ?>
-                            </select>
-
-                            <select name="gekozenDag">
-                                <option disabled selected value="">Dag</option>
-                                <?php
-                                // Query voor dagen
-                                $dagQuery = "SELECT * FROM Dagen";
-                                $dagResult = mysqli_query($mysqli, $dagQuery);
-
-                                if (mysqli_num_rows($dagResult) > 0) {
-                                    while ($item = mysqli_fetch_assoc($dagResult)) {
-                                        $dagID = $item["DagID"];
-                                        $dag = $item["Dagen"];
-                                        if ($ITPtaakItem->dagID == $dagID) {
-                                            echo "<option value='" . $dagID ."' selected>". $dag ."</option>";
-                                        } else {
-                                            echo "<option value='". $dagID ."'>". $dag ."</option>";
-                                        }
-                                    }
-                                }
-                                ?>
-                            </select>
-                            <input type="submit" id="check" name="toepasSubmit">
-                        </form>
-                    </div>
+            <div class="alleTaken">
+                <!--        Nog in te plannen taken  -->
+                <div class="ITPTaken">
+                    <h3 class="ITPtitel">Nog in te plannen taken:</h3>
                     <?php
-                }
-                ?>
-            </div>
-
-            <!--        Taken overzicht  -->
-            <div class="takenOverzicht">
-                <h3>Taken</h3>
-                <div class="zichtTaakBox">
-                    <div class="zichtDagTaken">
-                        <?php
-                        $dagNaam = "";
-                        foreach ($takenArr as $taakItem) {
-                            // code neerzetten voor dagen
-                            if ($dagNaam != $taakItem->dagNamen()) { ?>
-                                <h4 class="zichtDag"><?php echo $taakItem->dagNamen() ?></h4>
-                                <?php
-                                $dagNaam = $taakItem->dagNamen();
-                            } ?>
-                            <div class="zichtTaak">
-                                <p><?= $taakItem->taakTitel ?></p>
-                                <p><?php echo $taakItem->beginTijd->format('H:i') . " - " . $taakItem->eindTijd->format('H:i');?></p>
-                                <p><?php echo $taakItem->taakOmschrijving ?></p>
-                                <!--                        Remove Icon-->
-                                <a href="pages/taakVerwijderVerwerk.php?Naam=<?php echo $Naam ?>&Taak=<?php echo $taakItem->taakID?>"><i class="fas fa-trash-alt" onclick=""></i></a>
-                            </div>
-                            <?php
-                        }
+                    foreach ($ITPtakenArr as $ITPtaakItem) {
                         ?>
+                        <div class="ITPTaakBox">
+                            <form class="ITPTaak" name="ITPTaak" action="" method="POST">
+                                <input type="hidden" name="ITPtaakID" value="<?php echo $ITPtaakItem->taakID ?>">
+                                <input class="ITPtaakTitel" name="ITPtaakTitel" value="<?= $ITPtaakItem->taakTitel ?>">
+                                <input class="ITPtaakOmschrijving" name="ITPtaakOmschrijving"
+                                       value="<?= $ITPtaakItem->taakOmschrijving ?>">
+                                <select class="ITPBegin" name="ITPbeginTijd">
+                                    <option disabled selected value="">Begintijd</option>
+                                    <?php
+                                    // Query voor tijden
+                                    $tijdQuery = "SELECT * FROM Tijden";
+                                    $tijdResult = mysqli_query($mysqli, $tijdQuery);
+
+                                    if (mysqli_num_rows($tijdResult) > 0) {
+                                        while ($item = mysqli_fetch_assoc($tijdResult)) {
+                                            $tijd = $item["Tijden"];
+
+                                            if ($tijd == "00:00:00") {
+                                                $tijd = "Geen tijd";
+                                            }
+
+                                            if ($ITPtaakItem->beginTijd->format('H:i:s') == $tijd) {
+
+                                                echo "<option value='" . $tijd . "' selected>" . $tijd . "</option>";
+                                            } else {
+                                                echo "<option value='" . $tijd . "'>" . $tijd . "</option>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <select class="ITPEind" name="ITPeindTijd">
+                                    <option disabled selected value="">Eindtijd</option>
+                                    <?php
+                                    $tijdResult = mysqli_query($mysqli, $tijdQuery);
+                                    if (mysqli_num_rows($tijdResult) > 0) {
+                                        while ($item = mysqli_fetch_assoc($tijdResult)) {
+                                            $tijd = $item["Tijden"];
+
+                                            if ($tijd == "00:00:00") {
+                                                $tijd = "Geen tijd";
+                                            }
+
+                                            if ($ITPtaakItem->eindTijd->format('H:i:s') == $tijd) {
+                                                echo "<option value='" . $tijd . "' selected>" . $tijd . "</option>";
+                                            } else {
+                                                echo "<option value='" . $tijd . "'>" . $tijd . "</option>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+
+                                <select name="gekozenDag">
+                                    <option disabled selected value="">Dag</option>
+                                    <?php
+                                    // Query voor dagen
+                                    $dagQuery = "SELECT * FROM Dagen";
+                                    $dagResult = mysqli_query($mysqli, $dagQuery);
+
+                                    if (mysqli_num_rows($dagResult) > 0) {
+                                        while ($item = mysqli_fetch_assoc($dagResult)) {
+                                            $dagID = $item["DagID"];
+                                            $dag = $item["Dagen"];
+
+                                            if ($ITPtaakItem->dagID == $dagID) {
+                                                echo "<option value='" . $dagID . "' selected>" . $dag . "</option>";
+                                            } else {
+                                                echo "<option value='" . $dagID . "'>" . $dag . "</option>";
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <input type="submit" id="check" name="toepasSubmit">
+                            </form>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+
+                <!--        Taken overzicht  -->
+                <div class="takenOverzicht">
+                    <h3 class="takentitel">Taken</h3>
+                    <div class="zichtTaakBox">
+                        <div class="zichtDagTaken">
+                            <?php
+                            $dagNaam = "";
+                            foreach ($takenArr as $taakItem) {
+                                // code neerzetten voor dagen
+                                if ($dagNaam != $taakItem->dagNamen()) { ?>
+                                    <h4 class="zichtDag"><?php echo $taakItem->dagNamen() ?></h4>
+                                    <?php
+                                    $dagNaam = $taakItem->dagNamen();
+                                } ?>
+                                <div class="zichtTaak">
+                                    <p><?php echo $taakItem->beginTijd->format('H:i') . " - " . $taakItem->eindTijd->format('H:i'); ?></p>
+                                    <p><?= $taakItem->taakTitel ?>: <?php echo $taakItem->taakOmschrijving ?></p>
+                                    <!--                        Remove Icon-->
+                                    <div class="takenIcons">
+                                    <p class="verwijder">
+                                        <a href="pages/taakVerwijderVerwerk.php?Naam=<?php echo $Naam ?>&Taak=<?php echo $taakItem->taakID ?>">
+                                            <i class="fas fa-trash-alt" onclick=""></i>
+                                        </a>
+                                    </p>
+                                    <p class="pasaan">
+                                        <a href="pages/pasaan.php?Naam=<?= $Naam ?>&id=<?= $taakItem->taakID ?>&Dag=<?= $taakItem->dagID ?>">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </p>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
