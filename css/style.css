@@ -34,16 +34,6 @@ a {
     z-index: 10;
 }
 
-.header .logo {
-    width: 390px;
-}
-
-.header .logo .logo-img{
-    margin: 0 5px;
-    width: 100px;
-    height: auto;
-}
-
 .nav-md,
 .nav-sm{
     position: absolute;
@@ -65,8 +55,7 @@ a {
     line-height: 75px;
 }
 
-.nav-md .menu-nav__item,
-.nav-sm .menu-nav__item {
+.nav-md .menu-nav__item{
     display: inline-block;
     text-decoration: none;
     font-size: 10px;
@@ -179,31 +168,179 @@ a {
     float: right;
 }
 
-@media (max-width: 1119px){
+@media (max-width: 520px) {
+    .header .logo {
+        width: 65px;
+    }
+
+    .header .logo a,
+    .header .logo .logo-img{
+        margin: 0 5px;
+        width: 65px;
+        height: 65px;
+    }
+
     .nav-sm{
         visibility: visible;
     }
 
+    .nav-sm .menu-nav__item{
+        display: inline-block;
+        text-decoration: none;
+        font-size: 10px;
+        padding: 2px;
+    }
+
+    .nav-sm #home{
+        visibility: hidden;
+    }
+
     .nav-md{
         visibility: hidden;
+    }
+
+    .alleTaken{
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: auto;
+
+        width: 435px;
+        padding: 5px;
+        margin: 45px auto auto;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
+        align-items: baseline;
+
+    }
+
+    .ITPTaken,
+    .takenOverzicht{
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        margin: 5px;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
+    }
+}
+
+@media (max-width: 1119px) and (min-width: 521px){
+    .header .logo {
+        width: 65px;
+    }
+
+    .header .logo a,
+    .header .logo .logo-img{
+        margin: 0 5px;
+        width: 65px;
+        height: 65px;
+    }
+
+    .nav-sm{
+        visibility: visible;
+    }
+
+    .nav-sm .menu-nav__item{
+        display: inline-block;
+        text-decoration: none;
+        font-size: 10px;
+        padding: 0 0.5rem;
+    }
+
+    .nav-sm #home{
+        visibility: hidden;
+    }
+
+    .nav-md{
+        visibility: hidden;
+    }
+
+    .alleTaken{
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: auto;
+
+        width: 435px;
+        padding: 5px;
+        margin: 45px auto auto;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
+        align-items: baseline;
+
+    }
+
+    .ITPTaken,
+    .takenOverzicht{
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        margin: 5px;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
     }
 }
 
 @media (min-width: 1120px) {
+    .header .logo {
+        width: 390px;
+    }
+
+    .header .logo .logo-img{
+        margin: 0 5px;
+        width: 100px;
+        height: auto;
+    }
+
     .nav-sm{
         visibility: hidden;
     }
 
     .nav-md{
         visibility: visible;
+    }
+
+    .alleTaken{
+        position: relative;
+        display: inline-grid;
+        grid-template-columns: auto auto;
+        grid-column-gap: 5vw;
+
+        width: 900px;
+        padding: 5px;
+        margin: 30px auto auto;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
+        align-items: baseline;
+
+    }
+
+    .ITPTaken,
+    .takenOverzicht{
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+        border-bottom: 2px solid black;
+        margin: 5px;
+
+        justify-content: space-evenly;
+        align-content: space-evenly;
     }
 }
 /* Nav */
 
 /* Index */
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+
 /* Link naar taak toevoegen*/
 .linkToevoeg{
-    width: 15vw;
+    width: 25vw;
     position: absolute;
     right: 0;
     margin: 5px;
@@ -220,34 +357,6 @@ a {
 
 .linkToevoeg a:hover{
     text-decoration: none;
-}
-
-/* ITP + Taken overzicht*/
-.alleTaken{
-    position: relative;
-    display: inline-grid;
-    grid-template-columns: auto auto;
-    grid-column-gap: 5vw;
-
-    width: 900px;
-    padding: 5px;
-    margin: 30px auto auto;
-
-    /*justify-content: space-evenly;*/
-    /*!*align-content: space-evenly;*!*/
-    align-items: baseline;
-
-}
-
-.ITPTaken,
-.takenOverzicht{
-    border-left: 2px solid black;
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-    margin: 5px;
-
-    justify-content: space-evenly;
-    align-content: space-evenly;
 }
 
 /* Titels van ITP en Taken*/
@@ -335,6 +444,41 @@ a {
     color: black;
 }
 
+/* Toevoeg pagina */
+.taakToevoegP{
+    margin-top: 15px;
+}
+
+.titelToevoeg{
+    text-align: center;
+}
+
+.taakToevoegP .tijd select{
+    background-color: #ffc;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid black;
+    overflow: auto;
+    padding: 0 1em;
+    margin: 0;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+}
+
+.alleTaken select::-webkit-scrollbar,
+.taakToevoegP .tijd select::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+.alleTaken select::-webkit-scrollbar-thumb,
+.taakToevoegP .tijd select::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background-color: #A0C4FF;
+}
+
 /*Login*/
 .container{
     max-width: 350px;
@@ -420,7 +564,6 @@ a {
     }
 }
 
-
 /*Dagenpagina*/
 
 .dag{
@@ -447,7 +590,7 @@ a {
     color: black;
 }
 
-.postIt .tijd {
+.postIt .tijd{
     text-align: left;
     margin: 0;
 }

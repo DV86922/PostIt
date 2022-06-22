@@ -236,7 +236,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
             </nav>
         </header>
 
-        <main class="index">
+        <main class="index row">
             <!--        Taak toevoegen  -->
             <div class="linkToevoeg">
                 <a href="pages/taakToevoeg.php?Naam=<?= $Naam ?>"><i class="fas fa-plus"> </i> Taak toevoegen</a>
@@ -265,6 +265,7 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
                                     if (mysqli_num_rows($tijdResult) > 0) {
                                         while ($item = mysqli_fetch_assoc($tijdResult)) {
                                             $tijd = $item["Tijden"];
+
 
                                             if ($tijd == "00:00:00") {
                                                 $tijd = "Geen tijd";
