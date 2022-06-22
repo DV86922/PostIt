@@ -38,96 +38,95 @@ if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
     <?php
     require_once "header_responsive.php";
     ?>
-    <div class="dagen">
-        <main>
-            <div>
-                <!--        Taak toevoegen  -->
-                <div>
-                    <h1><i class="fas fa-plus"> Taak toevoegen</i></h1>
-                </div>
 
-                <div>
-                    <ul>
-                        <li>
-                            <form class="taakToevoeg" name="toevoegForm" method="post"
-                                  action="taakToevoegVerwerk.php?Naam=<?php echo $Naam; ?>">
-                                <input type="hidden" name="gebruikerID" value="<?php echo $inGebruiker->gebruikerID ?>">
-                                <div class="postIt formPost">
-                                    <div class="tijd">
-                                        <select name="beginTijd">
-                                            <option disabled selected>Begintijd</option>
-                                            <?php
-                                            // Query voor tijden
-                                            $tijdQuery = "SELECT * FROM Tijden";
-                                            $tijdResult = mysqli_query($mysqli, $tijdQuery);
-
-                                            if (mysqli_num_rows($tijdResult) > 0) {
-                                                while ($item = mysqli_fetch_assoc($tijdResult)) {
-                                                    $tijd = $item["Tijden"];
-
-                                                    if ($tijd == "00:00:00") {
-                                                        $tijd = "Geen tijd";
-                                                    }
-                                                    ?>
-                                                    <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                        <select name="eindTijd">
-                                            <option disabled selected>Eindtijd</option>
-                                            <?php
-                                            // Query voor tijden
-                                            $tijdQuery = "SELECT * FROM Tijden";
-                                            $tijdResult = mysqli_query($mysqli, $tijdQuery);
-                                            if (mysqli_num_rows($tijdResult) > 0) {
-                                                while ($item = mysqli_fetch_assoc($tijdResult)) {
-                                                    $tijd = $item["Tijden"];
-
-                                                    if ($tijd == "00:00:00") {
-                                                        $tijd = "Geen tijd";
-                                                    }
-                                                    ?>
-                                                    <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                        <select name="gekozenDag">
-                                            <option disabled selected>Dag</option>
-                                            <?php
-                                            // Query voor tijden
-                                            $dagQuery = "SELECT * FROM Dagen";
-                                            $dagResult = mysqli_query($mysqli, $dagQuery);
-
-                                            if (mysqli_num_rows($dagResult) > 0) {
-                                                while ($item = mysqli_fetch_assoc($dagResult)) {
-                                                    $dagID = $item["DagID"];
-                                                    $dag = $item["Dagen"];
-                                                    ?>
-                                                    <option value="<?php echo $dagID ?>"><?= $dag ?></option>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <h2><input class="taakTitel" type="text" name="taakTitel" required
-                                               placeholder="Taak titel"></h2>
-                                    <input class="omschrijvingInput" type="text" name="taakOmschrijving" required
-                                           placeholder="Taak omschrijving">
-                                    <input class="btn" type="submit" name="submit" value="Toevoegen">
-                                </div>
-                            </form>
-                        </li>
-                    </ul>
-
-                </div>
+    <main class="taakToevoegP">
+        <div class="dagen">
+            <!--        Taak toevoegen  -->
+            <div class="titelToevoeg">
+                <h1>Taak toevoegen</h1>
             </div>
-        </main>
-    </div>
+
+            <div>
+                <ul>
+                    <li>
+                        <form class="taakToevoeg" name="toevoegForm" method="post"
+                              action="taakToevoegVerwerk.php?Naam=<?php echo $Naam; ?>">
+                            <input type="hidden" name="gebruikerID" value="<?php echo $inGebruiker->gebruikerID ?>">
+                            <div class="postIt formPost">
+                                <div class="tijd">
+                                    <select name="beginTijd">
+                                        <option disabled selected>Begintijd</option>
+                                        <?php
+                                        // Query voor tijden
+                                        $tijdQuery = "SELECT * FROM Tijden";
+                                        $tijdResult = mysqli_query($mysqli, $tijdQuery);
+
+                                        if (mysqli_num_rows($tijdResult) > 0) {
+                                            while ($item = mysqli_fetch_assoc($tijdResult)) {
+                                                $tijd = $item["Tijden"];
+
+                                                if ($tijd == "00:00:00") {
+                                                    $tijd = "Geen tijd";
+                                                }
+                                                ?>
+                                                <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <select name="eindTijd">
+                                        <option disabled selected>Eindtijd</option>
+                                        <?php
+                                        // Query voor tijden
+                                        $tijdQuery = "SELECT * FROM Tijden";
+                                        $tijdResult = mysqli_query($mysqli, $tijdQuery);
+                                        if (mysqli_num_rows($tijdResult) > 0) {
+                                            while ($item = mysqli_fetch_assoc($tijdResult)) {
+                                                $tijd = $item["Tijden"];
+
+                                                if ($tijd == "00:00:00") {
+                                                    $tijd = "Geen tijd";
+                                                }
+                                                ?>
+                                                <option value="<?php echo $tijd ?>"><?= $tijd ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                    <select name="gekozenDag" class="gekozenDag">
+                                        <option disabled selected>Dag</option>
+                                        <?php
+                                        // Query voor tijden
+                                        $dagQuery = "SELECT * FROM Dagen";
+                                        $dagResult = mysqli_query($mysqli, $dagQuery);
+
+                                        if (mysqli_num_rows($dagResult) > 0) {
+                                            while ($item = mysqli_fetch_assoc($dagResult)) {
+                                                $dagID = $item["DagID"];
+                                                $dag = $item["Dagen"];
+                                                ?>
+                                                <option value="<?php echo $dagID ?>"><?= $dag ?></option>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <h2><input class="taakTitel" type="text" name="taakTitel" required
+                                           placeholder="Taak titel"></h2>
+                                <input class="omschrijvingInput" type="text" name="taakOmschrijving" required
+                                       placeholder="Taak omschrijving">
+                                <input class="btn" type="submit" name="submit" value="Toevoegen">
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </main>
     </body>
     </html>
     <?php
