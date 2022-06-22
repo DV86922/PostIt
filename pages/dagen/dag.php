@@ -1,11 +1,11 @@
-
-
 <?php
-
-//maak de verbinding
-require '../config.php';
-require '../../Classes/ClassGebruikers.php';
 session_start();
+
+if ($_SESSION['Gebruikersnaam'] && $_SESSION['Wachtwoord']) {
+    //maak de verbinding
+    require '../config.php';
+    require '../../Classes/ClassGebruikers.php';
+
 $bericht = "";
 
 // de dag uit de url halen //
@@ -97,3 +97,12 @@ require_once "header_responsive.php";
     </ul>
 </div>
 </body>
+
+<?php
+}
+else{
+    header("location: ../login.php");
+}
+
+?>
+
